@@ -1,13 +1,1083 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Claude Artifact Viewer</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Ulangkaji KAFA Nadeera</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap">
+<style>
+/* Layout: one-column phone-first study app — home grid of subject tiles, each subject opens behind its own coloured divider band */
+:root{
+  --bg:#EEF5F2; --surface:#FFFFFF; --surface-2:#F5F9F7; --ink:#17322B; --muted:#5B7169; --line:#D5E3DD;
+  --brand:#0F6B57; --sun:#F4B740; --good:#1E9E5A; --good-bg:#E3F6EA; --bad:#D64545; --bad-bg:#FCE8E8;
+  --c-aqidah:#6A4BC2; --c-sirah:#C77612; --c-ibadah:#0E8A7B; --c-adab:#C8466F; --c-jawi:#2B66CF; --c-arab:#3F8A22;
+  --t-aqidah:#EFEAFB; --t-sirah:#FBF0DF; --t-ibadah:#DFF4F1; --t-adab:#FBE6ED; --t-jawi:#E3ECFB; --t-arab:#E6F3DE;
+  --f-display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --f-ar:"Noto Naskh Arabic","Amiri","Traditional Arabic","Geeza Pro",serif;
+  --radius:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0F1A17; --surface:#172622; --surface-2:#1D2F2A; --ink:#E5F1EC; --muted:#9BB3AA; --line:#2B403A;
+  --brand:#5BC9AC; --sun:#F4C35E; --good:#4CCB85; --good-bg:#183A28; --bad:#F07A7A; --bad-bg:#3C1E1E;
+  --c-aqidah:#A88CF2; --c-sirah:#F0A848; --c-ibadah:#3FC7B4; --c-adab:#F07FA2; --c-jawi:#78A4F5; --c-arab:#88C766;
+  --t-aqidah:#251E3B; --t-sirah:#33261A; --t-ibadah:#14302C; --t-adab:#35202A; --t-jawi:#1A2742; --t-arab:#1E2F18;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0F1A17; --surface:#172622; --surface-2:#1D2F2A; --ink:#E5F1EC; --muted:#9BB3AA; --line:#2B403A;
+  --brand:#5BC9AC; --sun:#F4C35E; --good:#4CCB85; --good-bg:#183A28; --bad:#F07A7A; --bad-bg:#3C1E1E;
+  --c-aqidah:#A88CF2; --c-sirah:#F0A848; --c-ibadah:#3FC7B4; --c-adab:#F07FA2; --c-jawi:#78A4F5; --c-arab:#88C766;
+  --t-aqidah:#251E3B; --t-sirah:#33261A; --t-ibadah:#14302C; --t-adab:#35202A; --t-jawi:#1A2742; --t-arab:#1E2F18;
+  color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+*{box-sizing:border-box}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.ar{font-family:var(--f-ar);direction:rtl;unicode-bidi:isolate;line-height:1.9}
+
+/* Hero */
+.hero{background:var(--brand);color:#fff;border-radius:24px;padding:22px 20px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--sun) 0 38%,transparent 39%);opacity:.9}
+.hero h1{font-size:clamp(28px,7vw,40px);font-weight:800;position:relative;z-index:1;max-width:80%}
+.hero p{margin:6px 0 0;position:relative;z-index:1;font-weight:700;opacity:.95}
+.doa{margin-top:16px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:16px;padding:14px;position:relative;z-index:1;display:flex;flex-direction:column;gap:6px}
+.doa .lbl{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:800;opacity:.85}
+.doa .ar{font-size:26px;text-align:center}
+.doa .mean{font-size:14px;text-align:center;opacity:.95}
+.snd{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:7px 14px;font-weight:800;font-size:14px;background:var(--sun);color:#3A2600}
+.doa .snd{align-self:center}
+.notice{background:var(--surface);border:1px dashed var(--line);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--muted)}
+
+/* Subject grid */
+.sec-title{font-size:22px;font-weight:800;display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.sec-title small{font-family:var(--f-body);font-size:13px;color:var(--muted);font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:600px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tile{border:0;text-align:left;background:var(--tint);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:4px;border-bottom:5px solid var(--col);transition:transform .15s}
+.tile:hover{transform:translateY(-2px)}
+.tile .em{font-size:38px;line-height:1}
+.tile .nm{font-family:var(--f-display);font-weight:800;font-size:21px;color:var(--col)}
+.tile .jw{font-family:var(--f-ar);font-size:18px;direction:rtl;text-align:left;color:var(--ink)}
+.tile .pg{font-size:13px;color:var(--muted);font-weight:700}
+.stars{color:var(--sun);letter-spacing:1px}
+.stars .off{color:var(--line)}
+
+/* Divider band */
+.divider{background:var(--col);color:#fff;border-radius:24px;padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px}
+.divider .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.back{border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:6px 14px;font-weight:800;font-size:14px}
+.divider .no{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;opacity:.9}
+.divider .row{display:flex;align-items:center;gap:14px}
+.divider .em{font-size:52px;line-height:1;background:rgba(255,255,255,.18);border-radius:18px;padding:8px}
+.divider h2{font-size:clamp(30px,8vw,44px);font-weight:800}
+.divider .jw{font-family:var(--f-ar);font-size:24px;direction:rtl}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .divider{color:#0F1A17}:root:not([data-theme="light"]) .back{color:#0F1A17}}
+:root[data-theme="dark"] .divider,:root[data-theme="dark"] .back{color:#0F1A17}
+
+.tabs{display:flex;gap:8px;background:var(--surface);padding:6px;border-radius:999px;border:1px solid var(--line)}
+.tabs button{flex:1;border:0;border-radius:999px;padding:10px;font-weight:800;background:transparent;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--col);color:var(--surface)}
+
+/* Notes */
+.note{background:var(--surface);border-radius:var(--radius);border:1px solid var(--line);overflow:hidden}
+.note-h{display:flex;gap:12px;align-items:center;padding:14px;background:var(--tint)}
+.note-h .pic{font-size:44px;line-height:1;flex:none;width:64px;height:64px;display:grid;place-items:center;background:var(--surface);border-radius:16px}
+.note-h .tt{min-width:0;flex:1}
+.note-h h3{font-size:20px;font-weight:800;color:var(--col)}
+.note-h .jw{font-family:var(--f-ar);direction:rtl;font-size:17px;text-align:left;color:var(--ink)}
+.note-b{padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.note-b ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.note-b li::marker{color:var(--col)}
+.tbl{overflow-x:auto;border-radius:12px;border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:420px}
+th{background:var(--col);color:var(--surface);text-align:left;padding:8px 10px;font-weight:800}
+td{padding:8px 10px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:var(--surface-2)}
+.arlist{display:flex;flex-direction:column;gap:8px}
+.aritem{display:flex;gap:10px;align-items:center;background:var(--surface-2);border-radius:12px;padding:8px 10px}
+.aritem .txt{flex:1;min-width:0}
+.aritem .ar{font-size:22px;display:block}
+.aritem .mn{font-size:13px;color:var(--muted)}
+.mini{border:0;background:var(--tint);color:var(--col);border-radius:999px;width:40px;height:40px;flex:none;font-size:18px}
+.vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.vc{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.vc:hover,.vc.on{border-color:var(--col)}
+.vc .pic{font-size:36px;line-height:1.1}
+.vc .ar{font-size:22px;line-height:1.6}
+.vc .mn{font-size:13px;font-weight:700;color:var(--muted)}
+.letters{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:8px}
+.lt{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:6px;display:flex;flex-direction:column;align-items:center}
+.lt .ar{font-size:30px;line-height:1.5}
+.lt small{font-weight:800;color:var(--col)}
+.hintbox{background:var(--tint);border:2px dashed var(--col);border-radius:14px;padding:10px 14px;font-size:15px;font-weight:700;line-height:1.7}
+.hintbox .ar{font-size:20px}
+.tip{background:var(--tint);border-radius:12px;padding:10px 12px;font-size:14px;font-weight:700}
+
+/* Practice */
+.fmt{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+.fmt b{color:var(--col)}
+.sets{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.setc{border:2px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:14px;text-align:left;display:flex;flex-direction:column;gap:4px}
+.setc:hover{border-color:var(--col)}
+.setc .n{font-family:var(--f-display);font-size:24px;font-weight:800;color:var(--col)}
+.setc .s{font-size:13px;color:var(--muted);font-weight:700}
+
+.quiz{background:var(--surface);border-radius:var(--radius);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:14px}
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.chip{background:var(--tint);color:var(--col);font-weight:800;font-size:13px;border-radius:999px;padding:4px 12px}
+.qn{font-weight:800;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.bar{height:10px;background:var(--surface-2);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--col);border-radius:999px;transition:width .3s}
+.qtext{font-size:20px;font-weight:800;line-height:1.5}
+.qtext .ar{font-size:26px;font-weight:600}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opts.two{flex-direction:row}
+.opts.two .opt{flex:1;justify-content:center}
+.opt{border:2px solid var(--line);background:var(--surface-2);border-radius:14px;padding:12px 14px;text-align:left;display:flex;gap:12px;align-items:center;font-weight:700;font-size:17px}
+.opt .k{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--tint);color:var(--col);font-weight:800}
+.opt .v{min-width:0;flex:1}
+.opt .v.ar{font-size:24px;text-align:right}
+.opt:hover:not(:disabled){border-color:var(--col)}
+.opt:disabled{cursor:default}
+.opt.ok{border-color:var(--good);background:var(--good-bg)}
+.opt.no{border-color:var(--bad);background:var(--bad-bg)}
+.fb{border-radius:14px;padding:12px 14px;font-weight:800}
+.fb.ok{background:var(--good-bg);color:var(--good)}
+.fb.no{background:var(--bad-bg);color:var(--bad)}
+.fb .ar{font-size:22px}
+.act{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;border-radius:999px;padding:12px 20px;font-weight:800;background:var(--col);color:var(--surface);font-size:16px}
+.btn.ghost{background:var(--tint);color:var(--col)}
+.result{text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.result .big{font-family:var(--f-display);font-size:56px;font-weight:800;color:var(--col);line-height:1;font-variant-numeric:tabular-nums}
+.result .stars{font-size:40px}
+.review{display:flex;flex-direction:column;gap:8px;text-align:left;width:100%}
+.rv{border-radius:12px;padding:10px 12px;background:var(--surface-2);font-size:14px}
+.rv.no{background:var(--bad-bg)}
+.rv .ar{font-size:19px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;max-width:90vw;text-align:center;z-index:20}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:15}
+@media (prefers-reduced-motion:reduce){.tile,.bar i{transition:none}}
+</style>
+
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast" hidden></div>
+<canvas class="confetti" id="cf"></canvas>
+
+<script>
+/* ============ DATA ============ */
+/* Soalan: [soalan, betul, salah1, salah2, salah3] = Objektif (A)
+           [kenyataan, 1|0]                        = Betul/Salah (B)
+           [ayat ___, betul, salah1, salah2]       = Isi tempat kosong (C) */
+const SUBJECTS=[
+{id:"aqidah",name:"Aqidah",jw:"عقيدة",em:"🌙",
+ notes:[
+  {t:"Sifat Wajib Bagi Allah",jw:"صيفت واجب باݢي الله ﷻ",img:"✨",
+   p:["Sifat wajib ialah sifat yang PASTI ada pada Allah SWT.","Ada 20 sifat wajib bagi Allah.","Tahun 2 belajar 3 sifat yang pertama: Wujud, Qidam dan Baqa'.","Sifat mustahil ialah lawan bagi sifat wajib. Sifat ini tidak mungkin ada pada Allah."],
+   tb:[["Sifat Wajib","Maksud","Lawan (Mustahil)"],["1. Wujud","Ada","'Adam (tiada)"],["2. Qidam","Sedia, tiada permulaan","Huduth (baharu)"],["3. Baqa'","Kekal, tiada kesudahan","Fana' (binasa)"]]},
+  {t:"Sifat Wujud",jw:"صيفت وُجُودٌ",img:"🌍",
+   p:["Wujud bermaksud Allah itu ADA.","Buktinya: langit, bumi, matahari, manusia dan haiwan semuanya ada penciptanya, iaitu Allah.","Kita tidak nampak Allah di dunia, tetapi kita nampak ciptaan-Nya.","Contoh mudah: rumah yang cantik mesti ada tukang yang membinanya.","Lawannya: 'Adam, bermaksud tiada."]},
+  {t:"Sifat Qidam",jw:"صيفت قِدَمٌ",img:"⏳",
+   p:["Qidam bermaksud Allah bersifat SEDIA, tiada permulaan.","Allah sudah ada sebelum semua makhluk dicipta.","Makhluk ada permulaan. Contohnya kita lahir sebagai bayi, pokok tumbuh daripada biji benih.","Lawannya: Huduth, bermaksud baharu (ada permulaan)."]},
+  {t:"Sifat Baqa'",jw:"صيفت بَقَاءٌ",img:"♾️",
+   p:["Baqa' bermaksud Allah KEKAL, tiada kesudahan.","Semua makhluk akan mati atau binasa, tetapi Allah tetap kekal selama-lamanya.","Lawannya: Fana', bermaksud binasa."]},
+  {t:"Islam dan Sains: Tumbuh-tumbuhan",jw:"إسلام دان ساءينس: تومبوه-تومبوهن",img:"🌱",
+   p:["Allah SWT mencipta tumbuh-tumbuhan untuk manusia dan haiwan.","Tumbuhan perlukan air, cahaya matahari, udara dan tanah untuk hidup.","Akar menyerap air dari tanah. Batang menegakkan pokok. Daun hijau membuat makanan.","Daun membuat makanan dengan bantuan cahaya matahari dan membebaskan oksigen untuk kita bernafas.","Manfaat tumbuhan: makanan (buah, sayur, padi), ubat, udara bersih dan teduhan.","Kita wajib bersyukur kepada Allah dan menjaga tumbuh-tumbuhan."]},
+  {t:"Rasul Ulul Azmi",jw:"رسول اولو العزم",img:"🕌",
+   p:["<b>Ulul</b> bermaksud yang mempunyai. <b>Azmi</b> bermaksud keazaman atau kesabaran yang tinggi.","Ulul Azmi ialah rasul yang sangat sabar, tabah dan tinggi keazamannya menghadapi ujian.","Jumlahnya 5 orang."],
+   tb:[["Rasul","Kisah ringkas"],["1. Nabi Nuh a.s.","Membina bahtera. Allah menurunkan banjir besar."],["2. Nabi Ibrahim a.s.","Dibakar oleh Raja Namrud, api menjadi sejuk. Membina Kaabah bersama Nabi Ismail a.s."],["3. Nabi Musa a.s.","Tongkat membelah laut. Menentang Firaun. Menerima kitab Taurat."],["4. Nabi Isa a.s.","Menyembuhkan orang sakit dengan izin Allah. Menerima kitab Injil."],["5. Nabi Muhammad s.a.w.","Rasul terakhir. Menerima kitab Al-Quran."]]},
+  {t:"Turutan Rasul Ulul Azmi",jw:"توروتن رسول اولو العزم",img:"🔢",
+   p:["Turutan ikut <b>kronologi sejarah</b> (siapa diutus dahulu): 1. Nabi Nuh a.s. → 2. Nabi Ibrahim a.s. → 3. Nabi Musa a.s. → 4. Nabi Isa a.s. → 5. Nabi Muhammad s.a.w.","Cara mudah ingat: <b>NIMIM</b> = <b>N</b>uh, <b>I</b>brahim, <b>M</b>usa, <b>I</b>sa, <b>M</b>uhammad.","Ada juga ulama yang menyusun ikut <b>keafdalan (kemuliaan)</b>: 1. Nabi Muhammad s.a.w. → 2. Nabi Ibrahim a.s. → 3. Nabi Musa a.s. → 4. Nabi Isa a.s. → 5. Nabi Nuh a.s.","Rasul yang paling mulia ialah <b>Nabi Muhammad s.a.w.</b>"],
+   tb:[["Turutan","Ikut kronologi (sejarah)","Ikut keafdalan (kemuliaan)"],["1","Nabi Nuh a.s.","Nabi Muhammad s.a.w."],["2","Nabi Ibrahim a.s.","Nabi Ibrahim a.s."],["3","Nabi Musa a.s.","Nabi Musa a.s."],["4","Nabi Isa a.s.","Nabi Isa a.s."],["5","Nabi Muhammad s.a.w.","Nabi Nuh a.s."]]}
+ ],
+ sets:[
+  [["Apakah maksud sifat wajib bagi Allah?","Sifat yang pasti ada pada Allah","Sifat yang tidak ada pada Allah","Sifat yang ada pada manusia","Sifat yang boleh berubah"],
+   ["Berapakah bilangan sifat wajib bagi Allah?","20","13","25","5"],
+   ["Wujud bermaksud…","Ada","Sedia","Kekal","Berkata-kata"],
+   ["Lawan bagi sifat Wujud ialah…","'Adam (tiada)","Fana' (binasa)","Huduth (baharu)","Kizib (dusta)"],
+   ["Qidam bermaksud…","Sedia, tiada permulaan","Kekal","Ada","Mendengar"],
+   ["Baqa' bermaksud…","Kekal, tiada kesudahan","Sedia","Ada","Melihat"],
+   ["Allah SWT bersifat Wujud kerana alam ini ada yang menciptanya.",1],
+   ["Allah SWT boleh binasa seperti makhluk.",0],
+   ["Lawan bagi sifat Baqa' ialah ___.","Fana'","'Adam","Qidam"],
+   ["Rasul Ulul Azmi berjumlah ___ orang.","lima","empat","sepuluh"]],
+  [["Siapakah Rasul Ulul Azmi yang pertama?","Nabi Nuh a.s.","Nabi Adam a.s.","Nabi Yusuf a.s.","Nabi Yunus a.s."],
+   ["Maksud Ulul Azmi ialah…","Rasul yang tinggi keazaman dan sangat sabar","Rasul yang paling kaya","Rasul yang tinggal di Mekah","Rasul yang paling muda"],
+   ["Nabi yang membina bahtera (kapal besar) ialah…","Nabi Nuh a.s.","Nabi Musa a.s.","Nabi Isa a.s.","Nabi Ibrahim a.s."],
+   ["Nabi Ibrahim a.s. dibakar oleh Raja Namrud, tetapi…","api menjadi sejuk dan baginda selamat","baginda melarikan diri","api tidak dapat dinyalakan","baginda tercedera"],
+   ["Nabi Musa a.s. membelah laut dengan…","tongkat","pedang","batu","kayu api"],
+   ["Rasul Ulul Azmi yang terakhir ialah…","Nabi Muhammad s.a.w.","Nabi Isa a.s.","Nabi Musa a.s.","Nabi Nuh a.s."],
+   ["Nabi Isa a.s. termasuk dalam Rasul Ulul Azmi.",1],
+   ["Nabi Adam a.s. ialah salah seorang Rasul Ulul Azmi.",0],
+   ["Nabi Musa a.s. berdakwah kepada Raja ___ yang zalim.","Firaun","Namrud","Abrahah"],
+   ["Kita mesti ___ apabila menghadapi ujian seperti Rasul Ulul Azmi.","bersabar","marah","merajuk"]],
+  [["Antara bukti Allah bersifat Wujud ialah…","Adanya langit, bumi dan makhluk","Allah boleh dilihat dengan mata","Allah mempunyai rumah","Allah dilahirkan"],
+   ["Lawan bagi sifat Qidam ialah…","Huduth (baharu)","Fana' (binasa)","'Adam (tiada)","Baqa' (kekal)"],
+   ["Maksud ‘Allah bersifat Qidam’ ialah…","Allah tiada permulaan","Allah ada permulaan","Allah dicipta","Allah akan binasa"],
+   ["Siapakah yang mencipta tumbuh-tumbuhan?","Allah SWT","Manusia","Petani","Matahari"],
+   ["Tumbuhan memerlukan perkara berikut untuk hidup KECUALI…","Gula-gula","Air","Cahaya matahari","Udara"],
+   ["Tumbuhan membebaskan gas yang kita perlukan untuk bernafas, iaitu…","Oksigen","Karbon dioksida","Asap","Wap air"],
+   ["Semua makhluk ada permulaan, tetapi Allah tidak ada permulaan.",1],
+   ["Pokok boleh tumbuh sendiri tanpa kehendak Allah.",0],
+   ["Akar tumbuhan menyerap ___ dari tanah.","air","cahaya","bunyi"],
+   ["Kita hendaklah ___ kepada Allah atas nikmat tumbuh-tumbuhan.","bersyukur","sombong","lalai"]],
+  [["Sifat Baqa' bermaksud Allah…","kekal selama-lamanya","baru dicipta","boleh mati","ada permulaan"],
+   ["Makhluk yang akan binasa ialah…","Manusia, haiwan dan tumbuhan","Allah SWT","Sifat-sifat Allah","Tiada satu pun"],
+   ["Daun hijau membuat makanan dengan bantuan…","cahaya matahari","cahaya bulan","bintang","angin"],
+   ["Bahagian tumbuhan yang kita makan seperti epal dan pisang ialah…","buah","akar","batang","duri"],
+   ["Mukjizat Nabi Isa a.s. ialah…","menyembuhkan orang sakit dengan izin Allah","membelah bulan","membina bahtera","tidak terbakar dalam api"],
+   ["Nabi Ibrahim a.s. bersama anaknya Nabi Ismail a.s. membina…","Kaabah","Masjid Nabawi","Bahtera","Istana"],
+   ["Lawan sifat Wujud ialah 'Adam yang bermaksud tiada.",1],
+   ["Sifat Qidam bermaksud Allah kekal.",0],
+   ["Allah bersifat ___ iaitu tiada permulaan.","Qidam","Baqa'","Wujud"],
+   ["Banjir besar berlaku pada zaman Nabi ___.","Nuh a.s.","Musa a.s.","Isa a.s."]],
+  [["Sifat wajib yang pertama bagi Allah ialah…","Wujud","Qidam","Baqa'","Qudrat"],
+   ["Sifat wajib yang kedua bagi Allah ialah…","Qidam","Wujud","Baqa'","Sama'"],
+   ["Sifat wajib yang ketiga bagi Allah ialah…","Baqa'","Wujud","Qidam","Basar"],
+   ["Kitab Injil diturunkan kepada…","Nabi Isa a.s.","Nabi Musa a.s.","Nabi Muhammad s.a.w.","Nabi Daud a.s."],
+   ["Kitab Taurat diturunkan kepada…","Nabi Musa a.s.","Nabi Isa a.s.","Nabi Nuh a.s.","Nabi Ibrahim a.s."],
+   ["Antara manfaat tumbuhan kepada manusia ialah…","Sumber makanan dan ubat","Mencemarkan udara","Menyebabkan banjir","Membuat bising"],
+   ["Nabi Muhammad s.a.w. ialah Rasul Ulul Azmi.",1],
+   ["Kita boleh melihat Allah dengan mata kita di dunia.",0],
+   ["Lawan bagi sifat Qidam ialah ___.","Huduth","Fana'","'Adam"],
+   ["Al-Quran diturunkan kepada Nabi ___.","Muhammad s.a.w.","Musa a.s.","Isa a.s."]]
+ ]},
+{id:"sirah",name:"Sirah",jw:"سيره",em:"🐫",
+ notes:[
+  {t:"Nabi Muhammad s.a.w. digelar Al-Amin",jw:"منرڠکن ڤريستيوا منداڤت ݢلرن الأمين",img:"🤝",
+   p:["Al-Amin bermaksud orang yang dipercayai (amanah).","Gelaran ini diberi oleh penduduk Mekah (kaum Quraisy) sebelum baginda menjadi rasul.","Sebabnya: baginda sentiasa bercakap benar, jujur dan menjaga barang yang diamanahkan.","Penduduk Mekah suka menyimpan barang berharga mereka dengan Nabi."]},
+  {t:"Peristiwa Meletakkan Hajarul Aswad",jw:"مڠتاهوي ڤريستيوا ڤلتقن الحجر الأسود",img:"🕋",
+   p:["Hajarul Aswad ialah batu hitam di Kaabah.","Klika itu Nabi berumur 35 tahun."],
+   tb:[["Langkah","Apa yang berlaku"],["1","Kaabah rosak akibat banjir, lalu dibaiki semula oleh kaum Quraisy."],["2","Ketua-ketua kabilah berebut untuk meletakkan Hajarul Aswad. Hampir bergaduh."],["3","Mereka setuju: orang pertama yang masuk ke Masjidil Haram akan menjadi hakim."],["4","Orang pertama yang masuk ialah Nabi Muhammad s.a.w. Semua gembira."],["5","Nabi menghamparkan kain dan meletakkan batu di tengahnya."],["6","Setiap ketua kabilah memegang hujung kain dan mengangkatnya bersama-sama."],["7","Nabi meletakkan Hajarul Aswad di tempatnya. Semua berpuas hati."]]},
+  {t:"Nabi Menggembala Kambing",jw:"منچريتاکن نبي محمد ﷺ مڠمبالا کمبيڠ",img:"🐐",
+   p:["Semasa kecil, Nabi Muhammad s.a.w. menggembala kambing milik penduduk Mekah dan mendapat upah.","Baginda menjaga kambing dengan baik supaya tidak hilang dan cukup makan.","Pengajaran: sabar, bertanggungjawab, rajin bekerja dan tidak bergantung kepada orang lain."]},
+  {t:"Nabi Berniaga di Syam",jw:"مڠتاهوي نبي محمد ﷺ برنياݢ دشام",img:"🐪",
+   p:["Umur 12 tahun: Nabi mengikut bapa saudaranya, Abu Talib, berniaga ke Syam.","Di Busra, pendeta Bahira melihat tanda-tanda kenabian pada baginda.","Umur 25 tahun: Nabi membawa barang dagangan milik Siti Khadijah ke Syam, ditemani Maisarah.","Nabi berniaga dengan jujur dan mendapat untung yang banyak.","Siti Khadijah tertarik dengan kejujuran Nabi, lalu berkahwin dengan baginda.","Pengajaran: jujur ketika berjual beli."]},
+  {t:"Sifat Wajib Nabi Muhammad s.a.w.",jw:"صيفت واجب نبي محمد ﷺ",img:"🌟",
+   p:["Sifat wajib bagi Rasul ada 4. Kita mesti mencontohinya."],
+   tb:[["Sifat Wajib","Maksud","Lawan (Mustahil)","Contoh untuk kita"],["1. Siddiq","Benar","Kizib (dusta)","Bercakap benar"],["2. Amanah","Dipercayai","Khianat","Pulangkan barang yang dipinjam"],["3. Tabligh","Menyampaikan","Kitman (menyembunyikan)","Sampaikan pesanan guru kepada ibu bapa"],["4. Fatanah","Bijaksana","Baladah (bodoh)","Rajin belajar, selesaikan masalah dengan bijak"]]}
+ ],
+ sets:[
+  [["Nabi Muhammad s.a.w. digelar Al-Amin yang bermaksud…","Orang yang dipercayai","Orang yang kuat","Orang yang kaya","Orang yang pandai berniaga"],
+   ["Siapakah yang memberi gelaran Al-Amin kepada Nabi?","Penduduk Mekah (kaum Quraisy)","Penduduk Madinah","Raja Rom","Pendeta Bahira"],
+   ["Hajarul Aswad ialah…","Batu hitam di Kaabah","Gunung di Mekah","Telaga di Mekah","Nama unta Nabi"],
+   ["Mengapakah Kaabah dibaiki semula?","Rosak akibat banjir","Ditiup angin","Dibakar musuh","Terlalu kecil"],
+   ["Para ketua kabilah bersetuju untuk melantik siapa sebagai hakim?","Orang pertama yang masuk ke Masjidil Haram","Orang yang paling kaya","Orang yang paling tua","Orang yang paling kuat"],
+   ["Apakah yang dihamparkan oleh Nabi untuk meletakkan Hajarul Aswad?","Kain","Tikar","Daun","Papan"],
+   ["Nabi Muhammad s.a.w. menyelesaikan masalah Hajarul Aswad dengan adil.",1],
+   ["Para ketua kabilah tidak berpuas hati dengan keputusan Nabi.",0],
+   ["Klika peristiwa Hajarul Aswad, Nabi berumur ___ tahun.","35","12","40"],
+   ["Sifat wajib Nabi yang bermaksud benar ialah ___.","Siddiq","Amanah","Tabligh"]],
+  [["Semasa kecil, Nabi Muhammad s.a.w. bekerja sebagai…","Pengembala kambing","Nelayan","Petani","Tukang kayu"],
+   ["Pengajaran daripada Nabi menggembala kambing ialah…","Sabar dan bertanggungjawab","Malas bekerja","Suka bermain","Bergantung kepada orang lain"],
+   ["Nabi pergi ke Syam kali pertama bersama…","Bapa saudaranya, Abu Talib","Abu Jahal","Saidina Umar","Halimatus Saadiah"],
+   ["Klika pertama kali ke Syam, Nabi berumur…","12 tahun","25 tahun","40 tahun","6 tahun"],
+   ["Pendeta yang melihat tanda kenabian pada Nabi ialah…","Bahira","Maisarah","Waraqah","Abrahah"],
+   ["Klika berumur 25 tahun, Nabi membawa barang dagangan milik…","Siti Khadijah","Abu Talib","Abu Lahab","Halimah"],
+   ["Nabi berniaga dengan jujur dan mendapat keuntungan yang banyak.",1],
+   ["Nabi Muhammad s.a.w. menipu ketika berniaga.",0],
+   ["Pembantu Siti Khadijah yang menemani Nabi ke Syam ialah ___.","Maisarah","Bilal","Zaid"],
+   ["Kita mesti ___ ketika berjual beli seperti Nabi.","jujur","menipu","sombong"]],
+  [["Berapakah sifat wajib bagi Rasul?","4","20","13","5"],
+   ["Siddiq bermaksud…","Benar","Dipercayai","Menyampaikan","Bijaksana"],
+   ["Amanah bermaksud…","Dipercayai","Benar","Bijaksana","Menyampaikan"],
+   ["Tabligh bermaksud…","Menyampaikan ajaran Allah","Bijaksana","Benar","Dipercayai"],
+   ["Fatanah bermaksud…","Bijaksana","Benar","Dipercayai","Menyampaikan"],
+   ["Lawan bagi sifat Siddiq ialah…","Kizib (dusta)","Khianat","Kitman","Baladah"],
+   ["Rasul menyampaikan semua ajaran Allah tanpa menyembunyikannya.",1],
+   ["Lawan bagi sifat Amanah ialah Fatanah.",0],
+   ["Lawan bagi sifat Fatanah ialah ___ (bodoh).","Baladah","Kizib","Khianat"],
+   ["Nabi menyelesaikan masalah Hajarul Aswad dengan bijak. Ini menunjukkan sifat ___.","Fatanah","Tabligh","Kitman"]],
+  [["Contoh sifat Amanah dalam kehidupan murid ialah…","Memulangkan barang kawan yang dipinjam","Mengambil pensel kawan tanpa izin","Bercakap bohong","Meniru dalam ujian"],
+   ["Contoh sifat Siddiq ialah…","Bercakap benar walaupun dimarahi","Berbohong kepada guru","Menyembunyikan kesalahan","Menuduh kawan"],
+   ["Contoh sifat Tabligh ialah…","Menyampaikan pesanan guru kepada ibu bapa","Menyimpan surat sekolah dalam beg","Melupakan pesanan","Merahsiakan ilmu"],
+   ["Lawan bagi sifat Tabligh ialah…","Kitman (menyembunyikan)","Kizib (dusta)","Baladah (bodoh)","Khianat"],
+   ["Kaabah terletak di kota…","Mekah","Madinah","Syam","Taif"],
+   ["Nabi Muhammad s.a.w. menggembala kambing milik…","Penduduk Mekah dengan upah","Raja Rom","Abu Jahal sahaja","Firaun"],
+   ["Lawan bagi sifat Amanah ialah Khianat.",1],
+   ["Syam terletak di dalam kota Mekah.",0],
+   ["Siti Khadijah tertarik dengan ___ Nabi lalu berkahwin dengan baginda.","kejujuran","kekayaan","kekuatan"],
+   ["Hajarul Aswad terletak di ___.","Kaabah","Masjid Nabawi","Gua Hira'"]],
+  [["Mengapakah Nabi digelar Al-Amin?","Kerana baginda sangat jujur dan amanah","Kerana baginda kaya","Kerana baginda anak raja","Kerana baginda kuat"],
+   ["Siapakah yang menyelesaikan perselisihan meletakkan Hajarul Aswad?","Nabi Muhammad s.a.w.","Abu Talib","Abu Bakar","Abdul Muttalib"],
+   ["Apakah akibat jika perselisihan Hajarul Aswad tidak diselesaikan?","Berlaku pergaduhan antara kabilah","Kaabah menjadi besar","Semua orang gembira","Hujan turun"],
+   ["Sifat wajib Rasul yang keempat ialah…","Fatanah","Siddiq","Amanah","Tabligh"],
+   ["Bagaimanakah kita boleh mencontohi Nabi?","Bercakap benar dan amanah","Suka bergaduh","Malas belajar","Mengambil hak orang"],
+   ["Nabi pergi ke Syam untuk…","Berniaga","Berperang","Belajar membaca","Bercuti"],
+   ["Ketua-ketua kabilah memegang hujung kain lalu mengangkat Hajarul Aswad bersama-sama.",1],
+   ["Rasul boleh bersifat dusta.",0],
+   ["Rasul bersifat ___ iaitu menyampaikan wahyu Allah.","Tabligh","Siddiq","Fatanah"],
+   ["Sifat wajib bagi Rasul yang pertama ialah ___.","Siddiq","Amanah","Tabligh"]]
+ ]},
+{id:"ibadah",name:"Ibadah",jw:"عبادة",em:"🤲",
+ notes:[
+  {t:"Bersuci daripada Najis",jw:"برسوچي درڤد نجيس",img:"🧼",
+   p:["Najis ialah benda kotor yang menghalang sahnya solat.","Contoh najis: darah, nanah, muntah, air kencing, tahi, bangkai, anjing dan babi.","Kita mesti membersihkan badan, pakaian dan tempat solat daripada najis.","Air yang digunakan mestilah air mutlak (air bersih yang suci dan menyucikan)."]},
+  {t:"Jenis-jenis Najis dan Cara Menyucikan",jw:"جنيس٢ نجيس",img:"🚿",
+   p:["Najis ada 3 jenis."],
+   tb:[["Jenis","Maksud","Contoh","Cara menyucikan"],["Mughallazah","Najis berat","Anjing dan babi","Sertu: basuh 7 kali, salah satunya dengan air bercampur tanah"],["Mukhaffafah","Najis ringan","Air kencing bayi lelaki bawah 2 tahun yang minum susu ibu sahaja","Renjis air pada tempat najis"],["Mutawassitah","Najis pertengahan","Darah, nanah, muntah, tahi, air kencing","Basuh dengan air hingga hilang warna, bau dan rasa"]]},
+  {t:"Bahagian Najis",jw:"بهاݢين نجيس",img:"🔍",
+   p:["Najis Mutawassitah ada 2 bahagian."],
+   tb:[["Bahagian","Ciri-ciri","Cara menyucikan"],["Najis 'Ainiyah","Dapat dilihat, ada warna, bau atau rasa","Buang najis, basuh hingga hilang warna, bau dan rasa"],["Najis Hukmiyah","Tidak dapat dilihat, tiada warna, bau dan rasa (contoh: air kencing yang sudah kering)","Alirkan air pada tempat najis"]]},
+  {t:"Istinjak",jw:"استنجاء",img:"🚽",
+   p:["Istinjak ialah membersihkan najis yang keluar dari qubul dan dubur.","Alat yang paling baik ialah air. Jika tiada air, boleh guna batu atau tisu sekurang-kurangnya 3 kali sapuan.","Gunakan tangan kiri.","Masuk tandas dengan kaki kiri dan baca doa. Keluar dengan kaki kanan dan baca doa.","Jangan bercakap di dalam tandas."],
+   ar:[["اَللّٰهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ","Doa masuk tandas: Ya Allah, aku berlindung dengan-Mu daripada syaitan lelaki dan perempuan."],["غُفْرَانَكَ","Doa keluar tandas: Aku memohon keampunan-Mu."]]},
+  {t:"Azan dan Iqamah",jw:"اذان دان اقامة",img:"📢",
+   p:["Azan ialah seruan untuk memberitahu masuk waktu solat fardu.","Orang yang melaungkan azan dipanggil bilal atau muazzin. Muazzin pertama ialah Bilal bin Rabah.","Iqamah ialah seruan menandakan solat akan didirikan.","Azan Subuh ada tambahan: اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ (2 kali).","Iqamah ada lafaz khas: قَدْ قَامَتِ الصَّلَاةُ (2 kali)."],
+   ar:[["اَللّٰهُ أَكْبَرُ","Allah Maha Besar (azan 4 kali, iqamah 2 kali)"],["أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ","Aku bersaksi tiada Tuhan melainkan Allah"],["أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ","Aku bersaksi Nabi Muhammad pesuruh Allah"],["حَيَّ عَلَى الصَّلَاةِ","Marilah menunaikan solat"],["حَيَّ عَلَى الْفَلَاحِ","Marilah menuju kejayaan"],["قَدْ قَامَتِ الصَّلَاةُ","Solat telah didirikan (iqamah sahaja)"],["لَا إِلٰهَ إِلَّا اللّٰهُ","Tiada Tuhan melainkan Allah"]]},
+  {t:"Menjawab Azan dan Iqamah",jw:"جواب اذان دان اقامة",img:"👂",
+   p:["Apabila mendengar azan, kita diam dan mengikut lafaz yang sama.","Ada beberapa lafaz yang jawapannya berbeza:"],
+   tb:[["Muazzin menyebut","Kita menjawab"],["حَيَّ عَلَى الصَّلَاةِ / حَيَّ عَلَى الْفَلَاحِ","لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ"],["اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ","صَدَقْتَ وَبَرِرْتَ"],["قَدْ قَامَتِ الصَّلَاةُ","أَقَامَهَا اللّٰهُ وَأَدَامَهَا"]],
+   ar:[["لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ","Tiada daya dan kekuatan melainkan dengan Allah"],["صَدَقْتَ وَبَرِرْتَ","Benarlah engkau dan baiklah engkau"],["أَقَامَهَا اللّٰهُ وَأَدَامَهَا","Semoga Allah mendirikannya dan mengekalkannya"]]},
+  {t:"Bacaan dalam Solat",jw:"باچاءن دالم صلاة",img:"🧎",
+   p:["Solat dimulakan dengan takbiratul ihram dan diakhiri dengan salam.","Surah Al-Fatihah wajib dibaca dalam setiap rakaat."],
+   ar:[["اَللّٰهُ أَكْبَرُ","Takbiratul ihram"],["إِنِّي وَجَّهْتُ وَجْهِيَ…","Doa iftitah (selepas takbiratul ihram)"],["سُبْحَانَ رَبِّيَ الْعَظِيمِ","Klika rukuk (3 kali)"],["سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ","Klika bangun dari rukuk (iktidal)"],["رَبَّنَا لَكَ الْحَمْدُ","Klika berdiri iktidal"],["سُبْحَانَ رَبِّيَ الْأَعْلَى","Klika sujud (3 kali)"],["رَبِّ اغْفِرْ لِي وَارْحَمْنِي…","Duduk antara dua sujud"],["اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللّٰهِ","Memberi salam"]]}
+ ],
+ sets:[
+  [["Najis ialah…","Benda kotor yang menghalang sahnya solat","Benda yang bersih","Air yang suci","Makanan yang halal"],
+   ["Najis Mughallazah ialah najis…","Berat","Ringan","Pertengahan","Yang tidak nampak"],
+   ["Contoh najis Mughallazah ialah…","Anjing dan babi","Air kencing kucing","Darah","Muntah"],
+   ["Najis Mukhaffafah ialah…","Air kencing bayi lelaki bawah 2 tahun yang minum susu ibu sahaja","Darah dan nanah","Anjing","Tahi ayam"],
+   ["Contoh najis Mutawassitah ialah…","Darah, nanah dan muntah","Babi","Air kencing bayi lelaki yang minum susu ibu sahaja","Air hujan"],
+   ["Cara menyucikan najis Mukhaffafah ialah…","Merenjis air pada tempat najis","Membasuh 7 kali","Menggunakan tanah","Membiarkannya kering"],
+   ["Najis Mughallazah disucikan dengan membasuh 7 kali, salah satunya dengan air bercampur tanah.",1],
+   ["Najis Mutawassitah ialah najis berat.",0],
+   ["Najis terbahagi kepada ___ jenis.","tiga","dua","lima"],
+   ["Cara menyucikan najis Mughallazah dipanggil ___.","sertu","renjis","istinjak"]],
+  [["Najis 'Ainiyah ialah najis yang…","Dapat dilihat, ada warna, bau atau rasa","Tidak dapat dilihat","Sudah hilang","Tiada langsung"],
+   ["Najis Hukmiyah ialah najis yang…","Tidak dapat dilihat, tiada warna, bau dan rasa","Ada warna dan bau","Berbau busuk","Masih basah"],
+   ["Cara menyucikan najis 'Ainiyah ialah…","Basuh hingga hilang warna, bau dan rasa","Renjis air sahaja","Lap dengan kain kering","Tiup dengan kipas"],
+   ["Cara menyucikan najis Hukmiyah ialah…","Mengalirkan air pada tempat najis","Membasuh 7 kali","Menggunakan tanah","Membiarkan sahaja"],
+   ["Air yang digunakan untuk menyucikan najis mestilah…","Air mutlak (air bersih)","Air teh","Air sirap","Air kopi"],
+   ["Bahagian najis ada…","Dua: 'Ainiyah dan Hukmiyah","Tiga","Empat","Lima"],
+   ["Air kencing yang sudah kering dan tidak berbau ialah najis Hukmiyah.",1],
+   ["Kita boleh solat dengan pakaian yang terkena najis.",0],
+   ["Najis yang dapat dilihat dipanggil najis ___.","'Ainiyah","Hukmiyah","Mukhaffafah"],
+   ["Kebersihan adalah sebahagian daripada ___.","iman","permainan","makanan"]],
+  [["Istinjak ialah…","Membersihkan najis yang keluar dari qubul dan dubur","Mengambil wuduk","Mandi wajib","Membasuh pinggan"],
+   ["Alat yang paling baik untuk beristinjak ialah…","Air","Daun kering","Kertas buku","Kayu"],
+   ["Jika tiada air, kita boleh beristinjak dengan batu atau tisu sekurang-kurangnya…","3 kali","1 kali","2 kali","10 kali"],
+   ["Klika masuk ke tandas, kita masuk dengan kaki…","Kiri","Kanan","Kedua-dua kaki","Melompat"],
+   ["Tangan yang digunakan untuk beristinjak ialah tangan…","Kiri","Kanan","Kedua-duanya","Tidak perlu tangan"],
+   ["Doa keluar tandas ialah…","غُفْرَانَكَ","سُبْحَانَ رَبِّيَ الْعَظِيمِ","اَللّٰهُ أَكْبَرُ","آمِين"],
+   ["Kita tidak boleh bercakap ketika berada di dalam tandas.",1],
+   ["Kita keluar dari tandas dengan kaki kiri.",0],
+   ["Kita masuk ke tandas dengan membaca ___.","doa masuk tandas","doa makan","doa tidur"],
+   ["Kita keluar dari tandas dengan kaki ___.","kanan","kiri","belakang"]],
+  [["Azan ialah…","Seruan memberitahu masuk waktu solat fardu","Seruan untuk makan","Bacaan selepas solat","Doa sebelum tidur"],
+   ["Orang yang melaungkan azan dipanggil…","Bilal / Muazzin","Imam","Makmum","Khatib"],
+   ["Muazzin pertama dalam Islam ialah…","Bilal bin Rabah","Abu Bakar","Umar al-Khattab","Ali bin Abi Talib"],
+   ["Lafaz tambahan dalam azan Subuh ialah…","اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ","قَدْ قَامَتِ الصَّلَاةُ","سُبْحَانَ اللّٰهِ","اَلْحَمْدُ لِلّٰهِ"],
+   ["Iqamah ialah…","Seruan menandakan solat akan didirikan","Seruan masuk waktu solat","Doa selepas solat","Bacaan dalam rukuk"],
+   ["Lafaz yang ada dalam iqamah tetapi tiada dalam azan ialah…","قَدْ قَامَتِ الصَّلَاةُ","اَللّٰهُ أَكْبَرُ","حَيَّ عَلَى الصَّلَاةِ","لَا إِلٰهَ إِلَّا اللّٰهُ"],
+   ["Kita disunatkan diam dan menjawab azan apabila mendengarnya.",1],
+   ["Iqamah dilaungkan sebelum masuk waktu solat.",0],
+   ["Apabila muazzin menyebut حَيَّ عَلَى الصَّلَاةِ, kita jawab ___.","لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ","اَللّٰهُ أَكْبَرُ","آمِين"],
+   ["Apabila mendengar قَدْ قَامَتِ الصَّلَاةُ, kita jawab ___.","أَقَامَهَا اللّٰهُ وَأَدَامَهَا","صَدَقْتَ وَبَرِرْتَ","غُفْرَانَكَ"]],
+  [["Apabila muazzin melaungkan اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ, kita menjawab…","صَدَقْتَ وَبَرِرْتَ","أَقَامَهَا اللّٰهُ وَأَدَامَهَا","غُفْرَانَكَ","آمِين"],
+   ["Bacaan ketika takbiratul ihram ialah…","اَللّٰهُ أَكْبَرُ","سُبْحَانَ اللّٰهِ","اَلْحَمْدُ لِلّٰهِ","آمِين"],
+   ["Bacaan ketika rukuk ialah…","سُبْحَانَ رَبِّيَ الْعَظِيمِ","سُبْحَانَ رَبِّيَ الْأَعْلَى","سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ","رَبِّ اغْفِرْ لِي"],
+   ["Bacaan ketika sujud ialah…","سُبْحَانَ رَبِّيَ الْأَعْلَى","سُبْحَانَ رَبِّيَ الْعَظِيمِ","اَللّٰهُ أَكْبَرُ","غُفْرَانَكَ"],
+   ["Surah yang wajib dibaca dalam setiap rakaat solat ialah…","Al-Fatihah","Al-Ikhlas","An-Nas","Al-Kauthar"],
+   ["Bacaan ketika bangun dari rukuk (iktidal) ialah…","سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ","سُبْحَانَ رَبِّيَ الْأَعْلَى","غُفْرَانَكَ","بِسْمِ اللّٰهِ"],
+   ["Solat diakhiri dengan memberi salam.",1],
+   ["Kita membaca سُبْحَانَ رَبِّيَ الْعَظِيمِ ketika sujud.",0],
+   ["Bacaan ketika duduk antara dua sujud dimulakan dengan ___.","رَبِّ اغْفِرْ لِي","اَللّٰهُ أَكْبَرُ","آمِين"],
+   ["Kita membaca doa ___ selepas takbiratul ihram.","iftitah","qunut","makan"]]
+ ]},
+{id:"adab",name:"Adab",jw:"اداب",em:"🌸",
+ notes:[
+  {t:"Adab Makan dan Minum",jw:"اداب ماکن دان مينوم",img:"🍽️",
+   p:["Basuh tangan sebelum dan selepas makan.","Baca doa sebelum makan.","Makan dan minum dengan tangan kanan, sambil duduk.","Ambil makanan yang paling dekat dengan kita.","Jangan mencela makanan, jangan meniup makanan panas, jangan membazir.","Minum perlahan-lahan dengan tiga teguk dan jangan bernafas dalam cawan.","Baca doa selepas makan dan bersyukur kepada Allah."],
+   ar:[["اَللّٰهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ","Doa sebelum makan: Ya Allah, berkatilah rezeki kami dan peliharalah kami daripada azab neraka."],["بِسْمِ اللّٰهِ أَوَّلَهُ وَآخِرَهُ","Jika terlupa membaca doa di awal makan"],["اَلْحَمْدُ لِلّٰهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ","Doa selepas makan: Segala puji bagi Allah yang memberi kami makan dan minum serta menjadikan kami orang Islam."]]},
+  {t:"Adab Masuk dan Keluar Rumah",jw:"اداب ماسوق دان کلوار رومه",img:"🏠",
+   p:["Masuk rumah dengan kaki kanan, beri salam dan baca doa.","Tanggalkan kasut dan susun dengan kemas.","Minta izin ibu bapa sebelum keluar rumah.","Keluar rumah dengan kaki kiri dan baca doa keluar rumah.","Jika ke rumah orang lain, beri salam dan minta izin sebanyak 3 kali."],
+   ar:[["اَلسَّلَامُ عَلَيْكُمْ","Memberi salam"],["وَعَلَيْكُمُ السَّلَامُ","Menjawab salam"],["بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ","Doa keluar rumah: Dengan nama Allah, aku bertawakal kepada Allah. Tiada daya dan kekuatan melainkan dengan Allah."]]},
+  {t:"Adab Menaiki Kenderaan",jw:"اداب منايقي کندراءن",img:"🚌",
+   p:["Baca doa naik kenderaan.","Naik kenderaan dengan kaki kanan.","Pakai tali pinggang keledar di dalam kereta, topi keledar di atas motosikal.","Duduk dengan sopan dan jangan membuat bising.","Jangan keluarkan tangan atau kepala dari tingkap.","Beratur ketika menunggu bas dan beri tempat duduk kepada orang tua.","Simpan sampah dan buang ke dalam tong sampah."],
+   ar:[["سُبْحَانَ الَّذِي سَخَّرَ لَنَا هٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنْقَلِبُونَ","Doa naik kenderaan: Maha Suci Allah yang memudahkan kenderaan ini untuk kami."]]},
+  {t:"Adab Berpakaian",jw:"اداب برڤاکاين",img:"👗",
+   p:["Pakaian mestilah menutup aurat, bersih dan kemas.","Aurat lelaki: antara pusat dan lutut. Aurat perempuan: seluruh badan kecuali muka dan dua tapak tangan.","Mula memakai pakaian dengan anggota kanan. Tanggalkan dengan anggota kiri.","Baca doa ketika memakai pakaian.","Lelaki tidak boleh memakai pakaian perempuan, dan sebaliknya.","Lelaki tidak boleh memakai emas dan sutera."],
+   ar:[["اَلْحَمْدُ لِلّٰهِ الَّذِي كَسَانِي هٰذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ","Doa memakai pakaian: Segala puji bagi Allah yang memberi aku pakaian ini."]]}
+ ],
+ sets:[
+  [["Sebelum makan kita hendaklah…","Membasuh tangan dan membaca doa","Terus makan","Bermain dahulu","Menonton TV"],
+   ["Kita makan dan minum menggunakan tangan…","Kanan","Kiri","Kedua-dua tangan","Mana-mana"],
+   ["Doa sebelum makan ialah…","اَللّٰهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ","غُفْرَانَكَ","سُبْحَانَ رَبِّيَ الْأَعْلَى","أَقَامَهَا اللّٰهُ وَأَدَامَهَا"],
+   ["Cara minum yang betul ialah…","Duduk dan minum tiga teguk","Berdiri sambil berlari","Minum sekali gus","Meniup ke dalam cawan"],
+   ["Makanan yang kita ambil ialah yang…","Paling dekat dengan kita","Paling jauh","Di pinggan kawan","Paling banyak"],
+   ["Selepas makan kita hendaklah…","Membaca doa selepas makan dan bersyukur","Terus tidur","Mencela makanan","Membazir makanan"],
+   ["Kita tidak boleh mencela makanan.",1],
+   ["Kita boleh meniup makanan yang panas.",0],
+   ["Jika terlupa membaca doa di awal makan, kita baca ___.","بِسْمِ اللّٰهِ أَوَّلَهُ وَآخِرَهُ","غُفْرَانَكَ","آمِين"],
+   ["Kita tidak boleh ___ makanan.","membazir","menghabiskan","menikmati"]],
+  [["Apabila masuk ke rumah, kita hendaklah…","Memberi salam","Menjerit","Menghentak pintu","Diam sahaja"],
+   ["Kita masuk ke rumah dengan kaki…","Kanan","Kiri","Melompat","Mana-mana"],
+   ["Kita keluar dari rumah dengan kaki…","Kiri","Kanan","Kedua-duanya","Belakang"],
+   ["Sebelum keluar rumah kita hendaklah…","Meminta izin ibu bapa","Keluar senyap-senyap","Mengunci pintu dari luar","Bergaduh"],
+   ["Doa keluar rumah dimulakan dengan…","بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ","غُفْرَانَكَ","سُبْحَانَ رَبِّيَ الْعَظِيمِ","صَدَقْتَ وَبَرِرْتَ"],
+   ["Ucapan salam yang betul ialah…","اَلسَّلَامُ عَلَيْكُمْ","Hoi!","Bye-bye","Helo sahaja"],
+   ["Kita perlu menanggalkan kasut sebelum masuk ke rumah.",1],
+   ["Kita boleh masuk ke rumah orang lain tanpa meminta izin.",0],
+   ["Jawapan salam ialah ___.","وَعَلَيْكُمُ السَّلَامُ","غُفْرَانَكَ","آمِين"],
+   ["Kita meminta izin masuk ke rumah orang sebanyak ___ kali.","tiga","sepuluh","dua puluh"]],
+  [["Sebelum menaiki kenderaan, kita hendaklah…","Membaca doa naik kenderaan","Menjerit","Melompat","Makan"],
+   ["Doa menaiki kenderaan dimulakan dengan…","سُبْحَانَ الَّذِي سَخَّرَ لَنَا هٰذَا","غُفْرَانَكَ","بِسْمِ اللّٰهِ أَوَّلَهُ وَآخِرَهُ","رَبِّ اغْفِرْ لِي"],
+   ["Di dalam kereta, kita mesti memakai…","Tali pinggang keledar","Topi koboi","Kasut sukan","Baju hujan"],
+   ["Apabila menaiki bas yang penuh, kita hendaklah…","Memberi tempat duduk kepada orang tua","Menolak orang tua","Duduk di lantai sambil bermain","Membuat bising"],
+   ["Klika menaiki motosikal kita mesti memakai…","Topi keledar","Topi koboi","Kaca mata hitam","Selipar"],
+   ["Sampah di dalam kenderaan hendaklah…","Disimpan dan dibuang ke dalam tong sampah","Dibuang ke luar tingkap","Disembunyikan bawah kerusi","Diberi kepada kawan"],
+   ["Kita tidak boleh mengeluarkan tangan atau kepala dari tingkap kenderaan.",1],
+   ["Kita boleh bergurau dengan kuat di dalam bas.",0],
+   ["Kita naik kenderaan dengan kaki ___ dahulu.","kanan","kiri","belakang"],
+   ["Kita hendaklah duduk dengan ___ di dalam kenderaan.","sopan","melompat","berdiri"]],
+  [["Pakaian seorang Muslim mestilah…","Menutup aurat, bersih dan kemas","Ketat dan nipis","Kotor","Koyak-koyak"],
+   ["Kita memakai pakaian dimulakan dengan anggota…","Kanan","Kiri","Kaki kiri","Mana-mana"],
+   ["Kita menanggalkan pakaian dimulakan dengan anggota…","Kiri","Kanan","Kepala","Mana-mana"],
+   ["Doa memakai pakaian dimulakan dengan…","اَلْحَمْدُ لِلّٰهِ الَّذِي كَسَانِي هٰذَا","غُفْرَانَكَ","سُبْحَانَ رَبِّيَ الْأَعْلَى","بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ"],
+   ["Lelaki tidak boleh memakai…","Emas dan sutera","Baju Melayu","Kopiah","Kain pelikat"],
+   ["Aurat perempuan ialah seluruh badan kecuali…","Muka dan dua tapak tangan","Kepala","Kaki","Rambut"],
+   ["Lelaki tidak boleh memakai pakaian perempuan.",1],
+   ["Kita boleh memakai pakaian kotor ketika solat.",0],
+   ["Aurat lelaki ialah antara pusat dan ___.","lutut","kepala","kaki"],
+   ["Pakaian yang bersih menunjukkan kita ___ kebersihan.","menjaga","membenci","melupakan"]],
+  [["Mengapakah kita membaca doa sebelum makan?","Supaya makanan diberkati Allah","Supaya cepat kenyang","Supaya makanan sejuk","Supaya tidak perlu basuh tangan"],
+   ["Ali masuk ke rumah tanpa memberi salam. Apakah nasihat kamu?","Berilah salam ketika masuk rumah","Teruskan begitu","Hentak pintu dengan kuat","Masuk ikut tingkap"],
+   ["Perbuatan yang betul di dalam kereta ialah…","Memakai tali pinggang keledar","Berdiri di atas kerusi","Membuka pintu ketika kereta bergerak","Mengganggu pemandu"],
+   ["Pakaian yang sesuai untuk ke kelas KAFA ialah…","Baju kurung atau baju Melayu yang menutup aurat","Seluar pendek","Baju tidur","Pakaian renang"],
+   ["Antara adab minum ialah…","Tidak bernafas di dalam cawan","Minum sambil berlari","Minum sekali gus","Minum dari botol kawan tanpa izin"],
+   ["Sebelum keluar rumah, kita membaca…","Doa keluar rumah","Doa masuk tandas","Doa tidur","Doa selepas wuduk"],
+   ["Kita makan sambil duduk dengan sopan.",1],
+   ["Kita mula memakai kasut dengan kaki kiri.",0],
+   ["Selepas makan kita mengucapkan ___ tanda syukur.","Alhamdulillah","Astaghfirullah","Innalillah"],
+   ["Kita perlu ___ ketika menunggu bas.","beratur","berebut","menolak"]]
+ ]},
+{id:"jawi",name:"Jawi",jw:"جاوي",em:"✍️",
+ notes:[
+  {t:"Ulangkaji Huruf Jawi",jw:"حروف جاوي",img:"🔤",
+   p:["Huruf Jawi ditulis dan dibaca dari kanan ke kiri.","Klik huruf untuk dengar bunyinya.","Huruf tambahan Jawi (tiada dalam huruf Arab) ditanda ★."],
+   g:[["ا","alif"],["ب","ba"],["ت","ta"],["ث","sa"],["ج","jim"],["ح","ha"],["خ","kha"],["د","dal"],["ذ","zal"],["ر","ra"],["ز","zai"],["س","sin"],["ش","syin"],["ص","sad"],["ض","dad"],["ط","ta"],["ظ","za"],["ع","ain"],["غ","ghain"],["ف","fa"],["ق","qaf"],["ک","kaf"],["ل","lam"],["م","mim"],["ن","nun"],["و","wau"],["ه","ha"],["ء","hamzah"],["ي","ya"],["چ","ca ★"],["ڠ","nga ★"],["ڤ","pa ★"],["ݢ","ga ★"],["ڽ","nya ★"],["ۏ","va ★"]]},
+  {t:"Imbuhan Awalan",jw:"ايمبوهن اولن",img:"⬅️",
+   p:["Imbuhan awalan diletakkan di HADAPAN kata dasar.","Dalam Jawi, imbuhan ditulis BERSAMBUNG dengan kata dasar (satu perkataan).","Ejaan kata dasar tidak berubah."],
+   tb:[["Imbuhan","Jawi","Contoh","Ejaan Jawi"],["ber-","بر","ber + main = bermain","برماين"],["ber-","بر","ber + jalan = berjalan","برجالن"],["di-","د","di + baca = dibaca","دباچ"],["di-","د","di + makan = dimakan","دماکن"],["ter-","تر","ter + jatuh = terjatuh","ترجاتوه"],["pe-","ڤ","pe + lari = pelari","ڤلاري"],["me-","م","me + lukis = melukis","ملوکيس"],["ke-","ک","ke + tua = ketua","کتوا"]]},
+  {t:"Imbuhan Akhiran dan Apitan",jw:"ايمبوهن اخيرن دان اڤيتن",img:"➡️",
+   p:["Imbuhan akhiran diletakkan di BELAKANG kata dasar.","Imbuhan apitan diletakkan di HADAPAN dan BELAKANG kata dasar."],
+   tb:[["Imbuhan","Jawi","Contoh","Ejaan Jawi"],["-an","ن","makan + an = makanan","ماکنن"],["-an","ن","minum + an = minuman","مينومن"],["-an","ن","main + an = mainan","ماينن"],["-kan","کن","jalan + kan = jalankan","جالنکن"],["ke-…-an","ک…ن","ke + bersih + an = kebersihan","کبرسيهن"],["ke-…-an","ک…ن","ke + sihat + an = kesihatan","کسيهتن"]]},
+  {t:"Perkataan Lazim",jw:"ڤرکتاءن لازيم",img:"📒",
+   p:["Klik perkataan untuk dengar sebutannya."],
+   w:[["سکوله","sekolah","🏫"],["بوکو","buku","📘"],["رومه","rumah","🏠"],["کوچيڠ","kucing","🐱"],["ايبو","ibu","👩"],["باڤ","bapa","👨"],["کاون","kawan","🧒"],["ماکن","makan","🍚"],["مينوم","minum","🥛"],["توليس","tulis","✏️"],["باچ","baca","📖"],["ماين","main","⚽"]]},
+  {t:"Sambungkan Huruf dan Cerakinkan Perkataan",jw:"سمبوڠکن حروف دان چرقينکن ڤرکتاءن",img:"🔗",
+   p:["Sambungkan huruf: cantumkan huruf-huruf mengikut urutan dari KANAN ke KIRI untuk membentuk perkataan. Contoh: ب + و + ڠ + ا = بوڠا (bunga).","Cerakinkan perkataan: pecahkan perkataan kepada huruf-huruf asalnya satu demi satu. Contoh: رومه (rumah) = ر + و + م + ه.","Huruf ا د ذ ر ز و tidak bersambung dengan huruf selepasnya (di sebelah kiri)."],
+   tb:[["Rumi","Huruf (cerakin)","Perkataan (sambung)"],["sekolah","س + ک + و + ل + ه","سکوله"],["buku","ب + و + ک + و","بوکو"],["kucing","ک + و + چ + ي + ڠ","کوچيڠ"],["kawan","ک + ا + و + ن","کاون"],["makan","م + ا + ک + ن","ماکن"],["minum","م + ي + ن + و + م","مينوم"],["tulis","ت + و + ل + ي + س","توليس"],["baca","ب + ا + چ","باچ"],["bermain","ب + ر + م + ا + ي + ن","برماين"],["makanan","م + ا + ک + ن + ن","ماکنن"]]}
+ ],
+ sets:[
+  [["Imbuhan ‘ber’ dieja dalam Jawi sebagai…","بر","بير","ب","بره"],
+   ["ber + main = bermain. Ejaan Jawi yang betul ialah…","برماين","بيرماين","برمين","برمايين"],
+   ["ber + lari = berlari. Ejaan Jawi yang betul ialah…","برلاري","برلار","بيرلاري","برلري"],
+   ["ber + jalan = berjalan. Ejaan Jawi yang betul ialah…","برجالن","برجلن","بيرجالن","برجالان"],
+   ["Imbuhan ‘di’ dieja dalam Jawi sebagai…","د","دي","ده","دا"],
+   ["di + baca = dibaca. Ejaan Jawi yang betul ialah…","دباچ","ديباچ","دباچا","دبچ"],
+   ["Imbuhan awalan ditulis bersambung dengan kata dasar dalam Jawi.",1],
+   ["Perkataan ‘ditulis’ dieja دي توليس (dijarakkan).",0],
+   ["di + makan = ___","دماکن","ديماکن","دمکن"],
+   ["ber + kawan = ___","برکاون","بيرکاون","برکون"]],
+  [["makan + an = makanan. Ejaan Jawi yang betul ialah…","ماکنن","ماکانن","مکنن","ماکنان"],
+   ["minum + an = minuman. Ejaan Jawi yang betul ialah…","مينومن","مينومان","منومن","مينوم ان"],
+   ["main + an = mainan. Ejaan Jawi yang betul ialah…","ماينن","ماينان","مينن","ماين ن"],
+   ["Imbuhan akhiran ‘-kan’ dieja sebagai…","کن","کان","ک","کين"],
+   ["jalan + kan = jalankan. Ejaan Jawi yang betul ialah…","جالنکن","جالنکان","جلنکن","جالن کن"],
+   ["tulis + an = tulisan. Ejaan Jawi yang betul ialah…","توليسن","توليسان","تولسن","تليسن"],
+   ["Imbuhan akhiran ditulis bersambung dengan kata dasar.",1],
+   ["Perkataan ‘makanan’ dieja ماکن ان (dijarakkan).",0],
+   ["duduk + kan = ___","دودوقکن","دودوقکان","ددوقکن"],
+   ["ajar + an = ___","اجرن","اجاران","اجرنا"]],
+  [["ter + jatuh = terjatuh. Ejaan Jawi yang betul ialah…","ترجاتوه","تيرجاتوه","ترجتوه","ترجاتوح"],
+   ["pe + lari = pelari. Ejaan Jawi yang betul ialah…","ڤلاري","ڤيلاري","ڤلار","فلاري"],
+   ["Imbuhan ‘ter’ dieja sebagai…","تر","تير","ت","ترا"],
+   ["Imbuhan ‘pe’ dieja sebagai…","ڤ","ڤي","ڤا","ف"],
+   ["me + lukis = melukis. Ejaan Jawi yang betul ialah…","ملوکيس","ميلوکيس","ملکيس","ملوکس"],
+   ["pe + main = pemain. Ejaan Jawi yang betul ialah…","ڤماين","ڤيماين","ڤمين","فماين"],
+   ["Huruf ڤ (pa) mempunyai tiga titik di atas.",1],
+   ["Perkataan ‘terjatuh’ dieja تير جاتوه.",0],
+   ["ter + tidur = ___","ترتيدور","تيرتيدور","ترتدور"],
+   ["pe + lukis = ___","ڤلوکيس","ڤيلوکيس","فلوکيس"]],
+  [["ke + bersih + an = kebersihan. Ejaan Jawi yang betul ialah…","کبرسيهن","کيبرسيهن","کبرسيهان","کبرسهن"],
+   ["Imbuhan ‘ke’ dieja sebagai…","ک","کي","کا","ق"],
+   ["Imbuhan apitan ialah imbuhan yang…","diletakkan di hadapan dan di belakang kata dasar","diletakkan di hadapan sahaja","diletakkan di belakang sahaja","diletakkan di tengah sahaja"],
+   ["ke + sihat + an = kesihatan. Ejaan Jawi yang betul ialah…","کسيهتن","کيسيهتن","کسيهاتن","کسيهتان"],
+   ["Kata dasar bagi ‘makanan’ ialah…","makan","makanan","maka","an"],
+   ["Kata dasar bagi ‘kebersihan’ ialah…","bersih","kebersih","bersihan","sih"],
+   ["Imbuhan awalan diletakkan di hadapan kata dasar.",1],
+   ["Imbuhan akhiran diletakkan di hadapan kata dasar.",0],
+   ["Kata dasar bagi ‘dibaca’ ialah ___.","baca","dibaca","bacaan"],
+   ["Perkataan ‘bermain’ mempunyai imbuhan ___.","awalan","akhiran","apitan"]],
+  [["Ejaan Jawi bagi ‘sekolah’ ialah…","سکوله","سيکوله","سکولاه","سکله"],
+   ["Ejaan Jawi bagi ‘buku’ ialah…","بوکو","بکو","بوکوا","بوکا"],
+   ["Ejaan Jawi bagi ‘rumah’ ialah…","رومه","روماه","رمه","رومح"],
+   ["Ejaan Jawi bagi ‘kucing’ ialah…","کوچيڠ","کوچيغ","کچيڠ","کوچڠ"],
+   ["Ejaan Jawi bagi ‘ibu’ ialah…","ايبو","ابو","ايب","ايبوا"],
+   ["Perkataan berimbuhan dalam ayat ‘Adik bermain bola’ ialah…","bermain","adik","bola","main"],
+   ["Perkataan سکوله dibaca ‘sekolah’.",1],
+   ["Huruf چ (ca) mempunyai satu titik sahaja.",0],
+   ["ber + tanya = ___","برتاڽ","بيرتاڽ","برتنيا"],
+   ["di + ambil = ___","دامبيل","ديامبيل","دمبيل"]]
+ ]},
+{id:"arab",name:"Bahasa Arab",jw:"العربية",em:"📚",
+ notes:[
+  {t:"Unit 5: Apa di dalam bekas pensel saya?",jw:"الْوَحْدَةُ الْخَامِسَةُ: مَاذَا فِي مِقْلَمَتِي؟",img:"✏️",
+   p:["Buku teks muka surat 42 hingga 51.","Klik kad untuk dengar sebutan.","Kata tanya: مَاذَا (apa), كَمْ (berapa), هَلْ (adakah).","Nombor: ١٤ أَرْبَعَةَ عَشَرَ · ١٥ خَمْسَةَ عَشَرَ · ١٦ سِتَّةَ عَشَرَ"],
+   v:[["مِقْلَمَةٌ","bekas pensel","👝"],["مِسْطَرَةٌ","pembaris","📏"],["مِمْحَاةٌ","pemadam pensel","🧽"],["مِقَصٌّ","gunting","✂️"],["قَلَمٌ","pen","🖊️"],["قَلَمُ رَصَاصٍ","pensel","✏️"],["قَلَمُ التَّلْوِينِ","pensel warna","🖍️"]],
+   ar:[["مَاذَا تَشْتَرِي؟","Apakah yang kamu beli?"],["أَنَا أَشْتَرِي مِقْلَمَةً","Saya membeli bekas pensel."],["كَمْ تَشْتَرِي مِسْطَرَةً؟","Berapa pembaris yang kamu beli?"],["أَنَا أَشْتَرِي أَرْبَعَةَ عَشَرَ مِقَصًّا","Saya membeli empat belas gunting."],["هَلْ أَنْتَ تَشْتَرِي مِقَصًّا؟","Adakah kamu membeli gunting?"],["نَعَمْ، أَنَا أَشْتَرِي مِقَصًّا","Ya, saya membeli gunting."],["مَاذَا فِي الْمِقْلَمَةِ؟","Apakah yang ada di dalam bekas pensel?"],["فِيهَا مِسْطَرَةٌ وَمِمْحَاةٌ","Di dalamnya ada pembaris dan pemadam."],["فِي مِقْلَمَتِي أَدَوَاتٌ دِرَاسِيَّةٌ","Di dalam bekas pensel saya ada alat-alat belajar."]]},
+  {t:"Unit 6: Apa di dalam beg saya?",jw:"الْوَحْدَةُ السَّادِسَةُ: مَاذَا فِي حَقِيبَتِي؟",img:"🎒",
+   p:["Buku teks muka surat 52 hingga 61.","Nombor: ١٧ سَبْعَةَ عَشَرَ · ١٨ ثَمَانِيَةَ عَشَرَ · ١٩ تِسْعَةَ عَشَرَ"],
+   v:[["حَقِيبَةٌ","beg","🎒"],["كِتَابٌ","buku","📕"],["دَفْتَرٌ","buku tulis","📓"],["وَرَقَةٌ","kertas","📄"]],
+   ar:[["هٰذِهِ حَقِيبَةٌ","Ini beg."],["هٰذَا كِتَابٌ","Ini buku."],["ذٰلِكَ دَفْتَرٌ","Itu buku tulis."],["تِلْكَ وَرَقَةٌ","Itu kertas."],["مَاذَا فِي حَقِيبَتِكَ يَا أَنَسُ؟","Apakah yang ada di dalam beg kamu, wahai Anas?"],["فِيهَا كِتَابٌ","Di dalamnya ada buku."],["هَلْ فِيهَا دَفْتَرٌ؟","Adakah di dalamnya ada buku tulis?"],["كَمْ كِتَابًا عِنْدَكَ؟","Berapa buku yang kamu ada?"],["عِنْدِي سَبْعَةَ عَشَرَ كِتَابًا","Saya ada tujuh belas buku."],["أَنْتَ طَالِبٌ مُجْتَهِدٌ","Kamu murid lelaki yang rajin."],["أَنْتِ طَالِبَةٌ مُجْتَهِدَةٌ","Kamu murid perempuan yang rajin."]]},
+  {t:"Unit 7: Kelasku Cantik",jw:"الْوَحْدَةُ السَّابِعَةُ: فَصْلِي الْجَمِيلُ",img:"🏫",
+   p:["Buku teks muka surat 62 hingga 71.","Kata ganti: أَنَا (saya) · نَحْنُ (kami) · هُوَ (dia lelaki) · هِيَ (dia perempuan).","Nombor: ٢٠ عِشْرُونَ"],
+   v:[["فَصْلٌ","kelas","🏫"],["كُرْسِيٌّ","kerusi","🪑"],["مَكْتَبٌ","meja","🗄️"],["سَبُّورَةٌ","papan tulis","🟩"],["مِمْسَحَةٌ","pemadam papan tulis","🧽"],["لَوْحَةٌ","papan kenyataan","📌"],["جَمِيلٌ","cantik","🌸"]],
+   ar:[["هٰذَا كُرْسِيٌّ","Ini kerusi."],["ذٰلِكَ مَكْتَبٌ","Itu meja."],["هٰذِهِ سَبُّورَةٌ","Ini papan tulis."],["تِلْكَ مِمْسَحَةٌ","Itu pemadam papan tulis."],["نَحْنُ فِي الْفَصْلِ","Kami di dalam kelas."],["نَحْنُ أَمَامَ السَّبُّورَةِ","Kami di hadapan papan tulis."],["أَنَا أَجْلِسُ عَلَى الْكُرْسِيِّ","Saya duduk di atas kerusi."],["هُوَ يَجْلِسُ عَلَى الْكُرْسِيِّ","Dia (lelaki) duduk di atas kerusi."],["هِيَ تَجْلِسُ عَلَى الْكُرْسِيِّ","Dia (perempuan) duduk di atas kerusi."],["فِي فَصْلِي عِشْرُونَ كُرْسِيًّا","Di dalam kelas saya ada dua puluh kerusi."],["فَصْلِي جَمِيلٌ","Kelas saya cantik."]]},
+  {t:"Unit 8: Kelasku Bersih",jw:"الْوَحْدَةُ الثَّامِنَةُ: فَصْلِي نَظِيفٌ",img:"🧹",
+   p:["Buku teks muka surat 72 hingga 81.","أَنَا أُنَظِّفُ · نَحْنُ نُنَظِّفُ · هُوَ يُنَظِّفُ · هِيَ تُنَظِّفُ (membersihkan)"],
+   v:[["بَابٌ","pintu","🚪"],["نَافِذَةٌ","tingkap","🪟"],["مِصْبَاحٌ","lampu","💡"],["مِرْوَحَةٌ","kipas","🌀"],["مِكْنَسَةٌ","penyapu","🧹"],["سَلَّةٌ","bakul sampah","🗑️"],["نَظِيفٌ","bersih","✨"]],
+   ar:[["هٰذَا بَابٌ، هٰذِهِ نَافِذَةٌ","Ini pintu, ini tingkap."],["ذٰلِكَ مِصْبَاحٌ، تِلْكَ مِرْوَحَةٌ","Itu lampu, itu kipas."],["هُوَ يُنَظِّفُ الْفَصْلَ بِالْمِكْنَسَةِ","Dia (lelaki) membersihkan kelas dengan penyapu."],["هِيَ تُنَظِّفُ الْفَصْلَ بِالْمِكْنَسَةِ","Dia (perempuan) membersihkan kelas dengan penyapu."],["هُوَ يُنَظِّفُ السَّبُّورَةَ بِالْمِمْسَحَةِ","Dia membersihkan papan tulis dengan pemadam papan tulis."],["نَحْنُ نَجْلِسُ تَحْتَ الْمِصْبَاحِ وَالْمِرْوَحَةِ","Kami duduk di bawah lampu dan kipas."],["هُوَ يَرْمِي الْقُمَامَةَ فِي السَّلَّةِ","Dia membuang sampah ke dalam bakul sampah."],["فَصْلِي نَظِيفٌ، أُحِبُّ فَصْلِي","Kelas saya bersih, saya sayang kelas saya."]]},
+  {t:"Tips: Ini dan Itu",jw:"هٰذَا · هٰذِهِ · ذٰلِكَ · تِلْكَ",img:"👉",
+   p:["Benda DEKAT (ini): هٰذَا untuk mudzakkar, هٰذِهِ untuk muannas.","Benda JAUH (itu): ذٰلِكَ untuk mudzakkar, تِلْكَ untuk muannas.","Petua: perkataan muannas biasanya berakhir dengan ة (ta marbutah). Contoh: هٰذِهِ مِسْطَرَةٌ، تِلْكَ نَافِذَةٌ.","Contoh mudzakkar: هٰذَا كِتَابٌ، ذٰلِكَ مِصْبَاحٌ."]}
+ ],
+ sets:[[],[],[],[],[]]}
+];
+
+/* ============ EXPAND: 40 soalan setiap set ============ */
+(function(){
+let seed=20261023;const rnd=()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(rnd()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const U=a=>[...new Set(a)];
+const ds=(pool,ans,n)=>sh(U(pool).filter(x=>x!==ans)).slice(0,n);
+const pk=a=>a[Math.floor(rnd()*a.length)];
+const P={};SUBJECTS.forEach(s=>{P[s.id]={A:[],B:[],C:[]};s.sets.flat().forEach(q=>{(q.length===5?P[s.id].A:q.length===2?P[s.id].B:P[s.id].C).push(q)})});
+const A=(id,q,ans,pool)=>{const d=ds(pool,ans,3);if(d.length===3)P[id].A.push([q,ans,...d])};
+const AX=(id,q,ans,d)=>P[id].A.push([q,ans,...d]);
+const B=(id,st,v)=>P[id].B.push([st,v?1:0]);
+const B2=(id,mk,good,pool)=>{B(id,mk(good),1);const w=pk(U(pool).filter(x=>x!==good));if(w!=null)B(id,mk(w),0)};
+const C=(id,q,ans,pool)=>{const d=ds(pool,ans,2);if(d.length===2)P[id].C.push([q,ans,...d])};
+const CX=(id,q,ans,d)=>P[id].C.push([q,ans,...d]);
+const cap=s=>s[0].toUpperCase()+s.slice(1);
+
+/* ---- AQIDAH ---- */
+const SW=[["Wujud","Ada","'Adam","tiada"],["Qidam","Sedia, tiada permulaan","Huduth","baharu"],["Baqa'","Kekal, tiada kesudahan","Fana'","binasa"]];
+const SWN=SW.map(x=>x[0]).concat(["Qudrat","Sama'","Basar"]),SWM=SW.map(x=>x[1]).concat(["Mendengar","Melihat","Berkuasa"]),SWL=SW.map(x=>`${x[2]} (${x[3]})`).concat(["Kizib (dusta)"]);
+SW.forEach(([n,m,l,lm],i)=>{
+ A("aqidah",`Sifat ${n} bermaksud…`,m,SWM);A("aqidah",`Sifat wajib bagi Allah yang bermaksud ‘${m}’ ialah…`,n,SWN);
+ A("aqidah",`Lawan (sifat mustahil) bagi sifat ${n} ialah…`,`${l} (${lm})`,SWL);A("aqidah",`Sifat mustahil ${l} (${lm}) ialah lawan bagi sifat…`,n,SWN);
+ A("aqidah",`Sifat wajib bagi Allah yang ke-${i+1} ialah…`,n,SWN);
+ B2("aqidah",x=>`Sifat ${n} bermaksud ${x.toLowerCase()}.`,m,SW.map(y=>y[1]));B2("aqidah",x=>`Lawan bagi sifat ${n} ialah ${x}.`,l,SW.map(y=>y[2]));
+ C("aqidah",`Allah bersifat ___ iaitu ${m.toLowerCase()}.`,n,SW.map(y=>y[0]));C("aqidah",`Lawan bagi sifat ${n} ialah ___.`,l,SW.map(y=>y[2]));
+ C("aqidah",`Sifat ${n} bermaksud ___.`,m.split(",")[0],SW.map(y=>y[1].split(",")[0]));
+});
+const UA=["Nabi Nuh a.s.","Nabi Ibrahim a.s.","Nabi Musa a.s.","Nabi Isa a.s.","Nabi Muhammad s.a.w."],UN=["Nabi Adam a.s.","Nabi Yusuf a.s.","Nabi Yunus a.s.","Nabi Sulaiman a.s.","Nabi Daud a.s."];
+const UF=[["Nabi Nuh a.s.","membina bahtera, lalu Allah menurunkan banjir besar"],["Nabi Ibrahim a.s.","dibakar oleh Raja Namrud tetapi api menjadi sejuk"],["Nabi Ibrahim a.s.","membina Kaabah bersama anaknya Nabi Ismail a.s."],["Nabi Musa a.s.","membelah laut dengan tongkat"],["Nabi Musa a.s.","menentang Firaun yang zalim"],["Nabi Musa a.s.","menerima kitab Taurat"],["Nabi Isa a.s.","menyembuhkan orang sakit dengan izin Allah"],["Nabi Isa a.s.","menerima kitab Injil"],["Nabi Muhammad s.a.w.","rasul terakhir yang menerima kitab Al-Quran"]];
+UF.forEach(([n,f])=>{A("aqidah",`Rasul Ulul Azmi yang ${f} ialah…`,n,UA);B2("aqidah",x=>`${x} ${f}.`,n,UA);C("aqidah",`___ ${f}.`,n,UA)});
+UA.forEach((n,i)=>{AX("aqidah","Antara berikut, yang manakah Rasul Ulul Azmi?",n,sh(UN).slice(0,3));A("aqidah",`Rasul Ulul Azmi yang ke-${i+1} ialah…`,n,UA);B("aqidah",`${n} ialah Rasul Ulul Azmi.`,1)});
+UN.forEach(n=>B("aqidah",`${n} ialah salah seorang Rasul Ulul Azmi.`,0));
+const UAF=["Nabi Muhammad s.a.w.","Nabi Ibrahim a.s.","Nabi Musa a.s.","Nabi Isa a.s.","Nabi Nuh a.s."];
+UA.forEach((n,i)=>{if(i<4){A("aqidah",`Ikut kronologi sejarah, Rasul Ulul Azmi selepas ${n} ialah…`,UA[i+1],UA);CX("aqidah",`Ikut kronologi: ${n} → ___`,UA[i+1],UA.filter(x=>x!==UA[i+1]&&x!==n).slice(0,2))}if(i>0)A("aqidah",`Ikut kronologi sejarah, Rasul Ulul Azmi sebelum ${n} ialah…`,UA[i-1],UA)});
+UAF.forEach((n,i)=>{A("aqidah",`Ikut keafdalan (kemuliaan), Rasul Ulul Azmi yang ke-${i+1} ialah…`,n,UA)});
+AX("aqidah","Susunan Rasul Ulul Azmi ikut kronologi sejarah yang betul ialah…","Nuh, Ibrahim, Musa, Isa, Muhammad",["Muhammad, Ibrahim, Musa, Isa, Nuh","Ibrahim, Nuh, Isa, Musa, Muhammad","Musa, Isa, Nuh, Ibrahim, Muhammad"]);
+AX("aqidah","Susunan Rasul Ulul Azmi ikut keafdalan yang betul ialah…","Muhammad, Ibrahim, Musa, Isa, Nuh",["Nuh, Ibrahim, Musa, Isa, Muhammad","Isa, Musa, Ibrahim, Nuh, Muhammad","Ibrahim, Muhammad, Nuh, Musa, Isa"]);
+AX("aqidah","Rasul Ulul Azmi yang paling mulia (afdal) ialah…","Nabi Muhammad s.a.w.",["Nabi Nuh a.s.","Nabi Isa a.s.","Nabi Musa a.s."]);
+AX("aqidah","Perkataan ‘Ulul’ bermaksud…","yang mempunyai",["yang pertama","yang kuat","yang kaya"]);
+AX("aqidah","Perkataan ‘Azmi’ bermaksud…","keazaman atau kesabaran yang tinggi",["kekayaan","kekuatan badan","kepandaian berniaga"]);
+CX("aqidah","Ulul Azmi: Ulul bermaksud yang ___.","mempunyai",["pertama","terakhir"]);
+CX("aqidah","Rasul Ulul Azmi yang pertama ikut kronologi ialah ___.","Nabi Nuh a.s.",["Nabi Muhammad s.a.w.","Nabi Isa a.s."]);
+CX("aqidah","Ikut keafdalan, Rasul Ulul Azmi yang pertama ialah ___.","Nabi Muhammad s.a.w.",["Nabi Nuh a.s.","Nabi Musa a.s."]);
+[["Ikut kronologi sejarah, Nabi Nuh a.s. ialah Rasul Ulul Azmi yang pertama.",1],["Ikut kronologi sejarah, Nabi Musa a.s. datang sebelum Nabi Ibrahim a.s.",0],["Ikut keafdalan, Nabi Muhammad s.a.w. ialah Rasul Ulul Azmi yang paling mulia.",1],["Ikut keafdalan, Nabi Ibrahim a.s. berada di tempat kedua.",1],["Nabi Isa a.s. diutus sebelum Nabi Musa a.s.",0],["Ulul Azmi bermaksud rasul yang mempunyai keazaman dan kesabaran yang tinggi.",1]].forEach(([t,v])=>B("aqidah",t,v));
+[["Kitab Taurat","Nabi Musa a.s."],["Kitab Injil","Nabi Isa a.s."],["Al-Quran","Nabi Muhammad s.a.w."]].forEach(([k,n])=>{A("aqidah",`${k} diturunkan kepada…`,n,UA.concat(["Nabi Daud a.s."]));C("aqidah",`${k} diturunkan kepada ___.`,n,UA)});
+const TP=[["Akar","menyerap air dari tanah"],["Batang","menegakkan pokok"],["Daun","membuat makanan dengan bantuan cahaya matahari"],["Buah","dimakan, contohnya epal dan pisang"]];
+TP.forEach(([p,f])=>{A("aqidah",`Bahagian tumbuhan yang ${f} ialah…`,p.toLowerCase(),TP.map(x=>x[0].toLowerCase()).concat(["bunga"]));B2("aqidah",x=>`${cap(x)} tumbuhan ${f}.`,p.toLowerCase(),TP.map(x=>x[0].toLowerCase()));C("aqidah",`___ tumbuhan ${f}.`,p,TP.map(x=>x[0]))});
+["air","cahaya matahari","udara","tanah"].forEach(n=>{AX("aqidah","Antara berikut, yang manakah keperluan tumbuhan untuk hidup?",n,sh(["gula-gula","asap kenderaan","plastik","minuman bergas"]).slice(0,3));B("aqidah",`Tumbuhan memerlukan ${n} untuk hidup.`,1)});
+["makanan seperti buah dan sayur","ubat-ubatan","udara yang bersih","teduhan"].forEach(m=>{AX("aqidah","Antara manfaat tumbuhan kepada manusia ialah…",m,sh(["mencemarkan udara","menyebabkan banjir","membuat bising","menyebabkan sakit"]).slice(0,3));B("aqidah",`Tumbuhan memberi manfaat kepada manusia, contohnya ${m}.`,1)});
+[["Kita mesti ___ kepada Allah atas nikmat tumbuhan.","bersyukur",["sombong","lalai"]],["Rasul Ulul Azmi sangat ___ menghadapi ujian.","sabar",["marah","malas"]],["Allah ___ tumbuh-tumbuhan untuk manusia dan haiwan.","mencipta",["membeli","menjual"]],["Daun membebaskan gas ___ untuk kita bernafas.","oksigen",["asap","karbon dioksida"]]].forEach(([q,a,d])=>CX("aqidah",q,a,d));
+[["Allah tidak sama dengan makhluk-Nya.",1],["Allah akan mati seperti manusia.",0],["Makhluk ada permulaan dan kesudahan.",1],["Tumbuhan boleh hidup tanpa air.",0]].forEach(([s,v])=>B("aqidah",s,v));
+
+/* ---- SIRAH ---- */
+const SR=[["Siddiq","Benar","Kizib","dusta","Bercakap benar walaupun dimarahi"],["Amanah","Dipercayai","Khianat","tidak amanah","Memulangkan barang yang dipinjam"],["Tabligh","Menyampaikan","Kitman","menyembunyikan","Menyampaikan pesanan guru kepada ibu bapa"],["Fatanah","Bijaksana","Baladah","bodoh","Menyelesaikan masalah dengan bijak"]];
+SR.forEach(([n,m,l,lm,c],i)=>{
+ A("sirah",`Sifat wajib Rasul ${n} bermaksud…`,m,SR.map(x=>x[1]));A("sirah",`Sifat wajib Rasul yang bermaksud ‘${m.toLowerCase()}’ ialah…`,n,SR.map(x=>x[0]));
+ A("sirah",`Lawan bagi sifat ${n} ialah…`,`${l} (${lm})`,SR.map(x=>`${x[2]} (${x[3]})`));A("sirah",`${c}. Perbuatan ini mencontohi sifat Rasul…`,n,SR.map(x=>x[0]));
+ A("sirah",`Sifat wajib Rasul yang ke-${i+1} ialah…`,n,SR.map(x=>x[0]));
+ B2("sirah",x=>`Sifat ${n} bermaksud ${x.toLowerCase()}.`,m,SR.map(x=>x[1]));B2("sirah",x=>`Lawan bagi sifat ${n} ialah ${x}.`,l,SR.map(x=>x[2]));
+ C("sirah",`Rasul bersifat ___ iaitu ${m.toLowerCase()}.`,n,SR.map(x=>x[0]));C("sirah",`Lawan bagi sifat ${n} ialah ___.`,l,SR.map(x=>x[2]));
+});
+const SF=[["Umur Nabi ketika peristiwa meletakkan Hajarul Aswad","35 tahun",["12 tahun","25 tahun","40 tahun"]],["Umur Nabi ketika kali pertama ke Syam","12 tahun",["35 tahun","25 tahun","6 tahun"]],["Umur Nabi ketika membawa dagangan Siti Khadijah ke Syam","25 tahun",["12 tahun","35 tahun","40 tahun"]],["Bapa saudara yang membawa Nabi berniaga ke Syam","Abu Talib",["Abu Lahab","Abu Jahal","Abu Bakar"]],["Pendeta di Busra yang melihat tanda kenabian","Bahira",["Maisarah","Waraqah","Abrahah"]],["Pembantu Siti Khadijah yang menemani Nabi ke Syam","Maisarah",["Bahira","Bilal","Halimah"]],["Wanita yang berkahwin dengan Nabi kerana kejujuran baginda","Siti Khadijah",["Halimatus Saadiah","Siti Aminah","Siti Fatimah"]],["Batu hitam di Kaabah","Hajarul Aswad",["Maqam Ibrahim","Telaga Zamzam","Bukit Safa"]],["Punca Kaabah rosak dan dibaiki semula","banjir",["gempa bumi","kebakaran","ribut salji"]],["Orang pertama yang masuk ke Masjidil Haram","Nabi Muhammad s.a.w.",["Abu Talib","Abu Jahal","Abdul Muttalib"]],["Benda yang digunakan Nabi untuk mengangkat Hajarul Aswad","kain",["tikar","papan","daun"]],["Haiwan yang digembala oleh Nabi semasa kecil","kambing",["lembu","unta","kuda"]],["Negeri tempat Nabi pergi berniaga","Syam",["Yaman","Habsyah","Parsi"]],["Maksud gelaran Al-Amin","orang yang dipercayai",["orang yang kuat","orang yang kaya","orang yang tinggi"]],["Kaum yang memberi gelaran Al-Amin kepada Nabi","kaum Quraisy di Mekah",["kaum Ansar di Madinah","orang Rom","orang Parsi"]]];
+SF.forEach(([q,a,d])=>{AX("sirah",`${q} ialah…`,a,d);CX("sirah",`${q} ialah ___.`,a,d.slice(0,2));B("sirah",`${q} ialah ${a}.`,1);B("sirah",`${q} ialah ${d[0]}.`,0)});
+const HS=["Kaabah rosak akibat banjir lalu dibaiki semula.","Ketua-ketua kabilah berebut untuk meletakkan Hajarul Aswad.","Mereka bersetuju orang pertama yang masuk ke Masjidil Haram menjadi hakim.","Nabi Muhammad s.a.w. orang pertama yang masuk.","Nabi menghamparkan kain dan meletakkan Hajarul Aswad di tengahnya.","Setiap ketua kabilah memegang hujung kain dan mengangkatnya bersama-sama.","Nabi meletakkan Hajarul Aswad di tempatnya dan semua berpuas hati."];
+HS.slice(0,-1).forEach((h,i)=>AX("sirah",`Peristiwa Hajarul Aswad: “${h}” Apakah yang berlaku selepas itu?`,HS[i+1],sh(HS.filter((_,j)=>j!==i&&j!==i+1)).slice(0,3)));
+const PG=[["menggembala kambing","sabar dan bertanggungjawab"],["berniaga di Syam","jujur ketika berjual beli"],["meletakkan Hajarul Aswad","bijak dan adil menyelesaikan masalah"],["digelar Al-Amin","sentiasa bercakap benar dan amanah"]];
+PG.forEach(([e,p])=>{A("sirah",`Pengajaran daripada kisah Nabi ${e} ialah…`,p,PG.map(x=>x[1]));B2("sirah",x=>`Pengajaran daripada kisah Nabi ${e} ialah ${x}.`,p,PG.map(x=>x[1]))});
+[["Menipu ketika berniaga ialah sifat yang baik.",0],["Kita mesti mencontohi sifat jujur Nabi Muhammad s.a.w.",1],["Nabi menggembala kambing untuk mendapat upah.",1],["Rasul boleh menyembunyikan wahyu Allah.",0]].forEach(([s,v])=>B("sirah",s,v));
+
+/* ---- IBADAH ---- */
+const NJT=["Mughallazah","Mutawassitah","Mukhaffafah","Bukan najis"];
+[["Anjing","Mughallazah"],["Babi","Mughallazah"],["Darah","Mutawassitah"],["Nanah","Mutawassitah"],["Muntah","Mutawassitah"],["Tahi","Mutawassitah"],["Air kencing kucing","Mutawassitah"],["Bangkai","Mutawassitah"],["Air kencing bayi lelaki bawah 2 tahun yang minum susu ibu sahaja","Mukhaffafah"],["Air hujan yang bersih","Bukan najis"]].forEach(([x,t])=>{A("ibadah",`${x} ialah…`,t==="Bukan najis"?t:`Najis ${t}`,NJT.map(y=>y==="Bukan najis"?y:`Najis ${y}`));if(t!=="Bukan najis")B2("ibadah",y=>`${x} ialah najis ${y}.`,t,NJT.slice(0,3))});
+const NJC=[["Mughallazah","Basuh 7 kali, salah satunya dengan air bercampur tanah (sertu)"],["Mukhaffafah","Renjis air pada tempat najis"],["Mutawassitah","Basuh hingga hilang warna, bau dan rasa"]];
+NJC.forEach(([j,c])=>{A("ibadah",`Cara menyucikan najis ${j} ialah…`,c,NJC.map(x=>x[1]).concat(["Lap dengan kain kering"]));A("ibadah",`“${c}” ialah cara menyucikan najis…`,j,NJT.slice(0,3).concat(["Hukmiyah"]))});
+[["Mughallazah","berat"],["Mutawassitah","pertengahan"],["Mukhaffafah","ringan"]].forEach(([j,m])=>{C("ibadah",`Najis ${j} ialah najis ___.`,m,["berat","pertengahan","ringan"]);B2("ibadah",x=>`Najis ${j} ialah najis ${x}.`,m,["berat","pertengahan","ringan"])});
+[["Darah yang masih basah di baju","'Ainiyah"],["Muntah di atas lantai","'Ainiyah"],["Tahi ayam yang dapat dilihat","'Ainiyah"],["Air kencing yang sudah kering dan tidak berbau","Hukmiyah"]].forEach(([x,t])=>{A("ibadah",`${x} ialah najis…`,t,["'Ainiyah","Hukmiyah","Mughallazah","Mukhaffafah"]);B2("ibadah",y=>`${x} ialah najis ${y}.`,t,["'Ainiyah","Hukmiyah"])});
+[["Kita masuk ke tandas dengan kaki kiri.",1],["Kita keluar dari tandas dengan kaki kanan.",1],["Kita beristinjak dengan tangan kanan.",0],["Air ialah alat yang paling baik untuk beristinjak.",1],["Kita boleh bercakap dan menyanyi di dalam tandas.",0],["Jika tiada air, kita boleh beristinjak dengan batu sekurang-kurangnya 3 kali sapuan.",1],["Kita boleh solat dengan pakaian yang terkena najis.",0],["Air sirap boleh digunakan untuk menyucikan najis.",0]].forEach(([s,v])=>B("ibadah",s,v));
+[["Kita masuk ke tandas dengan kaki ___.","kiri",["kanan","belakang"]],["Kita beristinjak menggunakan tangan ___.","kiri",["kanan","kedua-dua"]],["Alat yang paling baik untuk beristinjak ialah ___.","air",["daun","kertas buku"]],["Doa keluar tandas ialah ___.","غُفْرَانَكَ",["آمِين","اَللّٰهُ أَكْبَرُ"]]].forEach(([q,a,d])=>CX("ibadah",q,a,d));
+const AZ=[["اَللّٰهُ أَكْبَرُ","Allah Maha Besar"],["أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللّٰهُ","Aku bersaksi tiada Tuhan melainkan Allah"],["أَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللّٰهِ","Aku bersaksi Nabi Muhammad pesuruh Allah"],["حَيَّ عَلَى الصَّلَاةِ","Marilah menunaikan solat"],["حَيَّ عَلَى الْفَلَاحِ","Marilah menuju kejayaan"],["قَدْ قَامَتِ الصَّلَاةُ","Solat telah didirikan"],["اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ","Solat lebih baik daripada tidur"]];
+AZ.forEach(([a,m])=>{A("ibadah",`Lafaz ${a} bermaksud…`,m,AZ.map(x=>x[1]));A("ibadah",`Lafaz azan atau iqamah yang bermaksud ‘${m}’ ialah…`,a,AZ.map(x=>x[0]));B2("ibadah",x=>`${a} bermaksud ‘${x}’.`,m,AZ.map(x=>x[1]))});
+const JZ=[["حَيَّ عَلَى الصَّلَاةِ","لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللّٰهِ"],["اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ","صَدَقْتَ وَبَرِرْتَ"],["قَدْ قَامَتِ الصَّلَاةُ","أَقَامَهَا اللّٰهُ وَأَدَامَهَا"]];
+JZ.forEach(([a,j])=>{A("ibadah",`Apabila muazzin melaungkan ${a}, kita menjawab…`,j,JZ.map(x=>x[1]).concat(["غُفْرَانَكَ","آمِين"]));C("ibadah",`Jawapan bagi ${a} ialah ___.`,j,JZ.map(x=>x[1]).concat(["غُفْرَانَكَ"]))});
+const BS=[["اَللّٰهُ أَكْبَرُ","takbiratul ihram"],["سُبْحَانَ رَبِّيَ الْعَظِيمِ","rukuk"],["سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ","bangun dari rukuk (iktidal)"],["سُبْحَانَ رَبِّيَ الْأَعْلَى","sujud"],["رَبِّ اغْفِرْ لِي وَارْحَمْنِي","duduk antara dua sujud"],["اَلسَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللّٰهِ","memberi salam"]];
+BS.forEach(([a,k])=>{A("ibadah",`Bacaan ketika ${k} ialah…`,a,BS.map(x=>x[0]));A("ibadah",`Bacaan ${a} dibaca ketika…`,k,BS.map(x=>x[1]));B2("ibadah",x=>`${a} dibaca ketika ${x}.`,k,BS.map(x=>x[1]));C("ibadah",`Ketika ${k}, kita membaca ___.`,a,BS.map(x=>x[0]))});
+[["Muazzin pertama dalam Islam ialah ___.","Bilal bin Rabah",["Abu Bakar","Umar al-Khattab"]],["Orang yang melaungkan azan dipanggil ___.","muazzin",["imam","makmum"]],["Seruan menandakan solat akan didirikan ialah ___.","iqamah",["azan","doa"]],["Surah yang wajib dibaca dalam setiap rakaat ialah ___.","Al-Fatihah",["An-Nas","Al-Ikhlas"]]].forEach(([q,a,d])=>CX("ibadah",q,a,d));
+
+/* ---- ADAB ---- */
+const DA=[["اَللّٰهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ","sebelum makan"],["بِسْمِ اللّٰهِ أَوَّلَهُ وَآخِرَهُ","terlupa membaca doa di awal makan"],["اَلْحَمْدُ لِلّٰهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ","selepas makan"],["بِسْمِ اللّٰهِ تَوَكَّلْتُ عَلَى اللّٰهِ","keluar rumah"],["سُبْحَانَ الَّذِي سَخَّرَ لَنَا هٰذَا","menaiki kenderaan"],["اَلْحَمْدُ لِلّٰهِ الَّذِي كَسَانِي هٰذَا","memakai pakaian"],["اَلسَّلَامُ عَلَيْكُمْ","memberi salam"],["وَعَلَيْكُمُ السَّلَامُ","menjawab salam"]];
+DA.forEach(([a,o])=>{A("adab",`Doa atau ucapan ketika ${o} ialah…`,a,DA.map(x=>x[0]));A("adab",`${a} dibaca ketika…`,o,DA.map(x=>x[1]));B2("adab",x=>`${a} dibaca ketika ${x}.`,o,DA.map(x=>x[1]));C("adab",`Ketika ${o}, kita membaca ___.`,a,DA.map(x=>x[0]))});
+const AD={"makan dan minum":[["membasuh tangan sebelum makan","membaca doa sebelum makan","makan dengan tangan kanan","makan sambil duduk","mengambil makanan yang paling dekat","menghabiskan makanan"],["mencela makanan","meniup makanan yang panas","makan sambil berjalan","membazir makanan","bernafas di dalam cawan"]],
+ "masuk dan keluar rumah":[["memberi salam ketika masuk rumah","masuk rumah dengan kaki kanan","menyusun kasut dengan kemas","meminta izin ibu bapa sebelum keluar","keluar rumah dengan kaki kiri"],["menghentak pintu","masuk rumah orang tanpa izin","menjerit ketika masuk rumah","keluar rumah tanpa memberitahu ibu bapa"]],
+ "menaiki kenderaan":[["membaca doa menaiki kenderaan","memakai tali pinggang keledar","memakai topi keledar ketika menaiki motosikal","beratur ketika menunggu bas","memberi tempat duduk kepada orang tua","duduk dengan sopan"],["mengeluarkan kepala dari tingkap","membuang sampah ke luar tingkap","membuat bising di dalam bas","berdiri di atas kerusi kereta"]],
+ "berpakaian":[["memakai pakaian yang menutup aurat","memakai pakaian yang bersih dan kemas","memulakan dengan anggota kanan ketika memakai pakaian","membaca doa memakai pakaian"],["memakai pakaian yang kotor","lelaki memakai pakaian perempuan","lelaki memakai barang kemas emas","memulakan dengan anggota kiri ketika memakai pakaian"]]};
+Object.entries(AD).forEach(([k,[g,b]])=>{g.forEach(x=>{AX("adab",`Antara berikut, yang manakah adab ${k} yang BETUL?`,cap(x),sh(b).slice(0,3).map(cap));B("adab",`${cap(x)} ialah adab ${k} yang baik.`,1)});
+ b.forEach(x=>{AX("adab",`Antara berikut, yang manakah perbuatan yang SALAH ketika ${k}?`,cap(x),sh(g).slice(0,3).map(cap));B("adab",`${cap(x)} ialah adab ${k} yang baik.`,0)})});
+[["Kita masuk ke rumah dengan kaki ___.","kanan",["kiri","belakang"]],["Kita keluar dari rumah dengan kaki ___.","kiri",["kanan","belakang"]],["Kita menanggalkan pakaian dimulakan dengan anggota ___.","kiri",["kanan","kepala"]],["Aurat lelaki ialah antara pusat dan ___.","lutut",["kepala","bahu"]],["Kita minum sebanyak ___ teguk.","tiga",["satu","sepuluh"]],["Kita meminta izin masuk ke rumah orang sebanyak ___ kali.","tiga",["sepuluh","dua puluh"]],["Di dalam kereta, kita memakai ___.","tali pinggang keledar",["topi koboi","baju hujan"]]].forEach(([q,a,d])=>CX("adab",q,a,d));
+
+/* ---- JAWI ---- */
+const JL=[["ا","alif"],["ب","ba"],["ت","ta"],["ث","sa"],["ج","jim"],["ح","ha (ح)"],["خ","kha"],["د","dal"],["ذ","zal"],["ر","ra"],["ز","zai"],["س","sin"],["ش","syin"],["ص","sad"],["ض","dad"],["ط","ta (ط)"],["ظ","za (ظ)"],["ع","ain"],["غ","ghain"],["ف","fa"],["ق","qaf"],["ک","kaf"],["ل","lam"],["م","mim"],["ن","nun"],["و","wau"],["ه","ha (ه)"],["ي","ya"],["چ","ca"],["ڠ","nga"],["ڤ","pa"],["ݢ","ga"],["ڽ","nya"]];
+JL.forEach(([l,n])=>{A("jawi",`Huruf ${l} dinamakan…`,n,JL.map(x=>x[1]));A("jawi",`Huruf ‘${n}’ ialah…`,l,JL.map(x=>x[0]))});
+["چ","ڠ","ڤ","ݢ","ڽ"].forEach(l=>B("jawi",`Huruf ${l} ialah huruf tambahan Jawi yang tiada dalam huruf Arab.`,1));["ب","م","ع"].forEach(l=>B("jawi",`Huruf ${l} ialah huruf tambahan Jawi yang tiada dalam huruf Arab.`,0));
+[["ڤ","tiga titik di atas",1],["چ","tiga titik di bawah",1],["ڠ","tiga titik di atas",1],["ب","satu titik di bawah",1],["ت","dua titik di atas",1],["ڽ","satu titik sahaja",0],["چ","satu titik sahaja",0]].forEach(([l,d,v])=>B("jawi",`Huruf ${l} mempunyai ${d}.`,v));
+const RT={main:"ماين",jalan:"جالن",lari:"لاري",baca:"باچ",makan:"ماکن",minum:"مينوم",tulis:"توليس",lukis:"لوکيس",tidur:"تيدور",kawan:"کاون",ajar:"اجر",duduk:"دودوق",tanya:"تاڽ",jatuh:"جاتوه",ambil:"امبيل",masak:"ماسق",sapu:"ساڤو",mandi:"مندي",nyanyi:"ڽاڽي",lompat:"لومڤت"};
+const PF={ber:["بر","بير",["main","jalan","lari","kawan","tanya","nyanyi"]],di:["د","دي",["baca","makan","minum","tulis","lukis","ambil","masak","sapu","tanya"]],ter:["تر","تير",["jatuh","tidur","makan","minum","baca","lompat"]],pe:["ڤ","ڤي",["lari","main","lukis"]]};
+const SFX={an:["ن","ان",["makan","minum","main","tulis","lukis","masak","ajar"]],kan:["کن","کان",["jalan","duduk","tidur","tulis","masak","mandi","nyanyi"]]};
+const wordsJ=[];
+Object.entries(PF).forEach(([p,[j,bad,roots]])=>roots.forEach(r=>{const w=p+r,ok=j+RT[r];const wr=U([bad+RT[r],j+" "+RT[r],(p==="pe"?"ف":j)+RT[r].replace("ا",""),bad+" "+RT[r]]).filter(x=>x!==ok);
+ AX("jawi",`${p} + ${r} = ${w}. Ejaan Jawi yang betul ialah…`,ok,wr.slice(0,3));CX("jawi",`${p} + ${r} = ___`,ok,wr.slice(0,2));B("jawi",`Perkataan ‘${w}’ dieja ${ok}.`,1);B("jawi",`Perkataan ‘${w}’ dieja ${wr[0]}.`,0);wordsJ.push([w,ok])}));
+Object.entries(SFX).forEach(([sx,[j,bad,roots]])=>roots.forEach(r=>{const w=r+sx,ok=RT[r]+j;const wr=U([RT[r]+bad,RT[r]+" "+j,RT[r].replace("ا","")+j,RT[r]+" "+bad]).filter(x=>x!==ok);
+ AX("jawi",`${r} + ${sx} = ${w}. Ejaan Jawi yang betul ialah…`,ok,wr.slice(0,3));CX("jawi",`${r} + ${sx} = ___`,ok,wr.slice(0,2));B("jawi",`Perkataan ‘${w}’ dieja ${ok}.`,1);wordsJ.push([w,ok])}));
+[["ke + bersih + an = kebersihan","کبرسيهن",["کيبرسيهن","کبرسيهان","ک برسيه ن"]],["ke + sihat + an = kesihatan","کسيهتن",["کيسيهتن","کسيهاتن","کسيهتان"]]].forEach(([q,a,d])=>{AX("jawi",`${q}. Ejaan Jawi yang betul ialah…`,a,d);CX("jawi",`${q.split("=")[0]}= ___`,a,d.slice(0,2))});
+[["Imbuhan yang diletakkan di hadapan kata dasar dipanggil ___.","awalan",["akhiran","apitan"]],["Imbuhan yang diletakkan di belakang kata dasar dipanggil ___.","akhiran",["awalan","apitan"]],["Imbuhan yang diletakkan di hadapan dan di belakang kata dasar dipanggil ___.","apitan",["awalan","akhiran"]]].forEach(([q,a,d])=>CX("jawi",q,a,d));
+Object.keys(RT).forEach(r=>{["ber","di","ter","pe"].forEach(p=>{if(PF[p][2].includes(r))AX("jawi",`Kata dasar bagi perkataan ‘${p+r}’ ialah…`,r,U([p+r,p,r+"an",r.slice(0,-1)]).filter(x=>x!==r).slice(0,3))})});
+const LZ=[["سکوله","sekolah"],["بوکو","buku"],["رومه","rumah"],["کوچيڠ","kucing"],["ايبو","ibu"],["باڤ","bapa"],["کاون","kawan"],["ماکن","makan"],["مينوم","minum"],["توليس","tulis"],["باچ","baca"],["ماين","main"],["کامڤوڠ","kampung"],["سوڠاي","sungai"],["بوڠا","bunga"],["ڤوکوق","pokok"],["ايکن","ikan"],["مسجد","masjid"]];
+LZ.forEach(([j,r])=>{A("jawi",`Ejaan Jawi bagi perkataan ‘${r}’ ialah…`,j,LZ.map(x=>x[0]));A("jawi",`Perkataan ${j} dibaca…`,r,LZ.map(x=>x[1]));B2("jawi",x=>`Perkataan ${x} dibaca ‘${r}’.`,j,LZ.map(x=>x[0]))});
+const SIM={"ک":"ق","ق":"ک","ڠ":"غ","ن":"ڠ","ڤ":"ف","ب":"ت","ت":"ب","س":"ش","د":"ذ","ر":"ز","ه":"ح","چ":"ج","ج":"چ","م":"ن","ل":"ک"};
+function jvar(L){const o=[];for(let i=0;i<L.length-1;i++)if(L[i]!==L[i+1]){const c=L.slice();[c[i],c[i+1]]=[c[i+1],c[i]];o.push(c)}
+ L.forEach((x,i)=>{if(SIM[x]){const c=L.slice();c[i]=SIM[x];o.push(c)}});if(L.length>3)L.forEach((x,i)=>{if(i>0){const c=L.slice();c.splice(i,1);o.push(c)}});return sh(o)}
+const SC=LZ.map(([j,r])=>[r,j]).concat(Object.entries(RT)).concat(wordsJ.slice(0,12));
+const seenSC=new Set();
+SC.forEach(([r,j])=>{if(seenSC.has(j))return;seenSC.add(j);const L=Array.from(j),key=L.join("|");
+ const v=U(jvar(L).map(c=>c.join("|"))).filter(x=>x!==key).map(x=>x.split("|"));
+ const ws=U(v.map(c=>c.join(""))).filter(x=>x!==j);const cs=U(v.map(c=>c.join(" + ")));
+ if(ws.length>=3)AX("jawi",`Sambungkan huruf-huruf ${L.join(" + ")} menjadi perkataan (${r}).`,j,ws.slice(0,3));
+ if(cs.length>=3)AX("jawi",`Cerakinkan perkataan ${j} (${r}) kepada huruf-huruf.`,L.join(" + "),cs.slice(0,3));
+ if(ws.length>=2)CX("jawi",`${L.join(" + ")} = ___ (${r})`,j,ws.slice(0,2));
+ if(cs.length>=2)CX("jawi",`Cerakinkan: ${j} (${r}) = ___`,L.join(" + "),cs.slice(0,2));
+ B("jawi",`Huruf-huruf ${L.join(" + ")} apabila disambungkan menjadi ${j}.`,1);if(v[0])B("jawi",`Perkataan ${j} dicerakinkan menjadi ${v[0].join(" + ")}.`,0);
+});
+
+/* ---- BAHASA ARAB (ikut buku teks KAFA Tahun 2, Unit 5-8) ---- */
+const arab=SUBJECTS.find(s=>s.id==="arab");const units=arab.notes.filter(n=>n.v);
+const ALLV=units.flatMap(n=>n.v),ALLM=ALLV.map(v=>v[1]),ALLA=ALLV.map(v=>v[0]);
+const ADJ=["جَمِيلٌ","نَظِيفٌ","فَصْلٌ"];const fem=a=>/ة[ً-ْ]*$/.test(a.split(" ")[0]);
+units.forEach(u=>{const ms=u.v.map(v=>v[1]),as=u.v.map(v=>v[0]);
+ u.v.forEach(([a,m,e])=>{
+  A("arab",`${e} ${a} bermaksud…`,cap(m),ms.map(cap).concat(sh(ALLM).slice(0,4).map(cap)));
+  A("arab",`Apakah bahasa Arab bagi ‘${m}’ ${e}?`,a,as.concat(sh(ALLA).slice(0,4)));
+  B2("arab",x=>`${a} bermaksud ${x}.`,m,ms.concat(sh(ALLM).slice(0,3)));
+  C("arab",`Bahasa Arab bagi ‘${m}’ ialah ___.`,a,as.concat(sh(ALLA).slice(0,3)));
+  if(!ADJ.includes(a)){const f=fem(a),near=f?"هٰذِهِ":"هٰذَا",far=f?"تِلْكَ":"ذٰلِكَ",nearW=f?"هٰذَا":"هٰذِهِ",farW=f?"ذٰلِكَ":"تِلْكَ";
+   CX("arab",`___ ${a} (Ini ${m}.)`,near,[nearW,far]);CX("arab",`___ ${a} (Itu ${m}.)`,far,[farW,near]);
+   AX("arab",`Pilih ayat yang betul: “Ini ${m}.”`,`${near} ${a}`,[`${nearW} ${a}`,`${far} ${a}`,`${farW} ${a}`]);
+   AX("arab",`Pilih ayat yang betul: “Itu ${m}.”`,`${far} ${a}`,[`${farW} ${a}`,`${near} ${a}`,`${nearW} ${a}`]);
+   B("arab",`${a} ialah perkataan muannas.`,f?1:0);B("arab",`Ayat ${near} ${a} bermaksud “Ini ${m}.”`,1);B("arab",`Ayat ${nearW} ${a} ialah ayat yang betul.`,0)}
+ })});
+const PCASE=units[0].v.filter(v=>v[0]!=="مِقْلَمَةٌ"),BAG=units[1].v.filter(v=>v[0]!=="حَقِيبَةٌ"),ROOM=units[2].v.concat(units[3].v).filter(v=>!ADJ.includes(v[0]));
+PCASE.forEach(([a,m,e])=>{AX("arab",`مَاذَا فِي مِقْلَمَتِكَ؟ Benda yang boleh ada di dalam bekas pensel ialah…`,`${a}`,sh(ROOM).slice(0,3).map(x=>x[0]));CX("arab",`فِي مِقْلَمَتِي ___ (${m}).`,a,sh(ROOM).slice(0,2).map(x=>x[0]))});
+BAG.forEach(([a,m])=>{AX("arab",`مَاذَا فِي حَقِيبَتِكَ؟ Benda yang boleh ada di dalam beg ialah…`,a,sh(ROOM).slice(0,3).map(x=>x[0]));CX("arab",`فِي حَقِيبَتِي ___ (${m}).`,a,sh(ROOM).slice(0,2).map(x=>x[0]))});
+const NUM=[["١٤","14","أَرْبَعَةَ عَشَرَ","empat belas"],["١٥","15","خَمْسَةَ عَشَرَ","lima belas"],["١٦","16","سِتَّةَ عَشَرَ","enam belas"],["١٧","17","سَبْعَةَ عَشَرَ","tujuh belas"],["١٨","18","ثَمَانِيَةَ عَشَرَ","lapan belas"],["١٩","19","تِسْعَةَ عَشَرَ","sembilan belas"],["٢٠","20","عِشْرُونَ","dua puluh"]];
+NUM.forEach(([d,n,a,m])=>{A("arab",`Nombor ${n} (${d}) dalam bahasa Arab ialah…`,a,NUM.map(x=>x[2]));A("arab",`${a} ialah nombor…`,`${n} (${m})`,NUM.map(x=>`${x[1]} (${x[3]})`));B2("arab",x=>`${a} bermaksud ${x}.`,m,NUM.map(x=>x[3]));C("arab",`${d} = ___`,a,NUM.map(x=>x[2]))});
+const PRN=[["أَنَا","saya"],["نَحْنُ","kami"],["هُوَ","dia (lelaki)"],["هِيَ","dia (perempuan)"],["أَنْتَ","kamu (lelaki)"],["أَنْتِ","kamu (perempuan)"]];
+PRN.forEach(([a,m])=>{A("arab",`${a} bermaksud…`,m,PRN.map(x=>x[1]));A("arab",`Kata ganti bahasa Arab bagi ‘${m}’ ialah…`,a,PRN.map(x=>x[0]));B2("arab",x=>`${a} bermaksud ${x}.`,m,PRN.map(x=>x[1]))});
+[["___ يَجْلِسُ عَلَى الْكُرْسِيِّ.","هُوَ",["هِيَ","نَحْنُ"]],["___ تَجْلِسُ عَلَى الْكُرْسِيِّ.","هِيَ",["هُوَ","أَنَا"]],["___ نَجْلِسُ تَحْتَ الْمِرْوَحَةِ.","نَحْنُ",["هُوَ","هِيَ"]],["___ أَجْلِسُ عَلَى الْكُرْسِيِّ.","أَنَا",["هُوَ","نَحْنُ"]],["هُوَ ___ الْفَصْلَ بِالْمِكْنَسَةِ.","يُنَظِّفُ",["تُنَظِّفُ","نُنَظِّفُ"]],["هِيَ ___ الْفَصْلَ بِالْمِكْنَسَةِ.","تُنَظِّفُ",["يُنَظِّفُ","أُنَظِّفُ"]],["نَحْنُ ___ الْفَصْلَ بِالْمِكْنَسَةِ.","نُنَظِّفُ",["يُنَظِّفُ","تُنَظِّفُ"]],["أَنَا ___ الْفَصْلَ بِالْمِكْنَسَةِ.","أُنَظِّفُ",["يُنَظِّفُ","نُنَظِّفُ"]],["هُوَ يَرْمِي الْقُمَامَةَ فِي ___.","السَّلَّةِ",["الْمِقْلَمَةِ","الْحَقِيبَةِ"]],["هُوَ يُنَظِّفُ السَّبُّورَةَ بِـ___.","الْمِمْسَحَةِ",["الْمِسْطَرَةِ","الْمِقَصِّ"]],["فِي فَصْلِي ___ كُرْسِيًّا (20).","عِشْرُونَ",["سِتَّةَ عَشَرَ","تِسْعَةَ عَشَرَ"]],["عِنْدِي ___ كِتَابًا (17).","سَبْعَةَ عَشَرَ",["خَمْسَةَ عَشَرَ","عِشْرُونَ"]],["أَنَا أَشْتَرِي ___ مِقَصًّا (14).","أَرْبَعَةَ عَشَرَ",["سِتَّةَ عَشَرَ","ثَمَانِيَةَ عَشَرَ"]],["___ تَشْتَرِي؟ (Apa)","مَاذَا",["كَمْ","هَلْ"]],["___ تَشْتَرِي مِسْطَرَةً؟ (Berapa)","كَمْ",["مَاذَا","هَلْ"]],["___ أَنْتَ تَشْتَرِي مِقَصًّا؟ (Adakah)","هَلْ",["كَمْ","مَاذَا"]],["فَصْلِي نَظِيفٌ، ___ فَصْلِي.","أُحِبُّ",["أَشْتَرِي","أَجْلِسُ"]]].forEach(([q,a,d])=>CX("arab",q,a,d));
+const QW=[["مَاذَا","apa"],["كَمْ","berapa"],["هَلْ","adakah"]];
+QW.forEach(([a,m])=>{A("arab",`Kata tanya ${a} bermaksud…`,m,QW.map(x=>x[1]).concat(["siapa","di mana"]));B2("arab",x=>`Kata tanya ${a} bermaksud ${x}.`,m,QW.map(x=>x[1]))});
+const PH=units.flatMap(u=>u.ar||[]);
+PH.forEach(([a,m])=>{A("arab",`${a} bermaksud…`,m,PH.map(x=>x[1]));A("arab",`Ayat bahasa Arab bagi “${m}” ialah…`,a,PH.map(x=>x[0]));B2("arab",x=>`${a} bermaksud “${x}”`,m,PH.map(x=>x[1]))});
+[["هٰذَا dan هٰذِهِ bermaksud…","ini",["itu","apa","berapa"]],["ذٰلِكَ dan تِلْكَ bermaksud…","itu",["ini","apa","adakah"]],["Kata tunjuk untuk benda JAUH yang muannas ialah…","تِلْكَ",["ذٰلِكَ","هٰذَا","هٰذِهِ"]],["Kata tunjuk untuk benda DEKAT yang mudzakkar ialah…","هٰذَا",["هٰذِهِ","تِلْكَ","ذٰلِكَ"]],["Perkataan muannas biasanya berakhir dengan huruf…","ة (ta marbutah)",["ب (ba)","م (mim)","ل (lam)"]],["أَنْتَ طَالِبٌ ___ (rajin)","مُجْتَهِدٌ",["جَمِيلٌ","نَظِيفٌ","مِقَصٌّ"]]].forEach(([q,a,d])=>AX("arab",q,a,d));
+
+/* ---- TAMBAHAN SOALAN (set tidak berulang) ---- */
+/* AQIDAH */
+[["Beriman kepada Allah ialah rukun iman yang …","pertama",["kedua","ketiga","keempat"]],
+ ["Beriman kepada rasul ialah rukun iman yang …","keempat",["pertama","kedua","keenam"]],
+ ["Rukun iman ada …","6",["5","4","20"]],
+ ["Hukum beriman kepada Allah ialah …","wajib",["sunat","harus","makruh"]],
+ ["Hukum beriman kepada rasul ialah …","wajib",["sunat","harus","makruh"]],
+ ["Orang yang tidak percaya kepada Allah dikatakan …","kufur",["sabar","rajin","amanah"]],
+ ["Sifat wajib ialah sifat yang …","pasti ada pada Allah",["tidak ada pada Allah","ada pada manusia","boleh berubah"]],
+ ["Sifat mustahil ialah sifat yang …","tidak mungkin ada pada Allah",["pasti ada pada Allah","ada pada malaikat","ada pada haiwan"]],
+ ["Matahari, bulan dan bintang ialah bukti Allah bersifat …","Wujud",["Fana'","Huduth","'Adam"]],
+ ["Kita tidak nampak Allah di dunia, tetapi kita nampak …","ciptaan-Nya",["rumah-Nya","anak-Nya","gambar-Nya"]],
+ ["Rumah yang cantik mesti ada tukang yang membinanya. Ini contoh untuk memahami sifat …","Wujud",["Baqa'","Qidam","Fana'"]],
+ ["Bayi lahir, kemudian membesar. Ini menunjukkan makhluk ada …","permulaan",["sifat Qidam","sifat Baqa'","sifat Wujud sahaja"]],
+ ["Allah sudah ada sebelum semua makhluk dicipta. Ini maksud sifat …","Qidam",["Baqa'","Wujud","Fana'"]],
+ ["Semua makhluk akan mati, tetapi Allah tetap kekal. Ini maksud sifat …","Baqa'",["Qidam","Wujud","Huduth"]],
+ ["Pokok yang tumbang dan reput menunjukkan makhluk akan …","binasa",["kekal","sedia ada","tidak berubah"]],
+ ["Lawan bagi sifat wajib dipanggil sifat …","mustahil",["harus","sunat","makruh"]],
+ ["Fana' bermaksud …","binasa",["kekal","ada","sedia"]],
+ ["Huduth bermaksud …","baharu (ada permulaan)",["kekal","binasa","tiada"]],
+ ["'Adam bermaksud …","tiada",["ada","kekal","sedia"]],
+ ["Tumbuhan bernafas dan membebaskan gas …","oksigen",["asap","wap air","karbon monoksida"]],
+ ["Bahagian tumbuhan yang membuat makanan ialah …","daun",["akar","batang","buah"]],
+ ["Bahagian tumbuhan yang menyerap air ialah …","akar",["daun","bunga","buah"]],
+ ["Bahagian tumbuhan yang menegakkan pokok ialah …","batang",["daun","akar","bunga"]],
+ ["Contoh tumbuhan yang dijadikan makanan ialah …","padi",["batu","plastik","besi"]],
+ ["Cara kita menjaga tumbuhan ialah …","menyiram pokok",["memijak pokok","mematahkan dahan","membakar daun"]],
+ ["Tumbuhan memberi manfaat kepada manusia kerana Allah bersifat …","Maha Pemurah",["Fana'","lemah","kedekut"]],
+ ["Nabi yang diselamatkan daripada api oleh Allah ialah …","Nabi Ibrahim a.s.",["Nabi Nuh a.s.","Nabi Musa a.s.","Nabi Isa a.s."]],
+ ["Nabi yang diselamatkan daripada banjir besar dengan bahtera ialah …","Nabi Nuh a.s.",["Nabi Musa a.s.","Nabi Isa a.s.","Nabi Ibrahim a.s."]],
+ ["Nabi yang berdepan dengan Firaun ialah …","Nabi Musa a.s.",["Nabi Nuh a.s.","Nabi Ibrahim a.s.","Nabi Isa a.s."]],
+ ["Raja yang membakar Nabi Ibrahim a.s. ialah …","Namrud",["Firaun","Abrahah","Abu Jahal"]],
+ ["Anak Nabi Ibrahim a.s. yang membina Kaabah bersama baginda ialah …","Nabi Ismail a.s.",["Nabi Ishak a.s.","Nabi Yusuf a.s.","Nabi Yahya a.s."]],
+ ["Kitab Al-Quran diturunkan kepada …","Nabi Muhammad s.a.w.",["Nabi Musa a.s.","Nabi Isa a.s.","Nabi Nuh a.s."]],
+ ["Pengajaran daripada kisah Rasul Ulul Azmi ialah kita mesti …","sabar dan tabah menghadapi ujian",["cepat marah","mudah berputus asa","suka bergaduh"]]
+].forEach(([q,a,d])=>AX("aqidah",q,a,d));
+/* SIRAH */
+const SRS=[["Siddiq","Ali bercakap benar walaupun dia akan dimarahi."],["Siddiq","Mei mengaku dia yang terpecahkan pasu."],["Siddiq","Amin tidak menipu ketika bercerita."],["Siddiq","Siti menjawab dengan jujur apabila ditanya cikgu."],["Amanah","Ali memulangkan pensel yang dipinjam."],["Amanah","Aina menjaga beg kawannya dengan baik."],["Amanah","Abu menyerahkan duit yang dijumpai kepada guru."],["Amanah","Ketua kelas menjaga kunci kelas dengan baik."],["Tabligh","Nadeera menyampaikan pesanan cikgu kepada ibunya."],["Tabligh","Ali mengajar adiknya membaca doa makan."],["Tabligh","Siti memberitahu kawan tentang tarikh peperiksaan."],["Tabligh","Amin mengajak kawan solat berjemaah."],["Fatanah","Ali mencari jalan terbaik untuk mendamaikan kawan yang bergaduh."],["Fatanah","Mei rajin belajar dan menjawab soalan dengan bijak."],["Fatanah","Abu menyelesaikan masalah dengan tenang dan bijak."],["Fatanah","Aina membuat keputusan yang adil untuk semua kawan."]];
+SRS.forEach(([s,t])=>AX("sirah",`${t} Perbuatan ini mencontohi sifat Rasul …`,s,["Siddiq","Amanah","Tabligh","Fatanah"].filter(x=>x!==s)));
+[["Kaabah terletak di dalam …","Masjidil Haram",["Masjid Nabawi","Masjid Al-Aqsa","Gua Hira'"]],
+ ["Yang meletakkan Hajarul Aswad ke tempatnya ialah …","Nabi Muhammad s.a.w.",["ketua kabilah Quraisy","Abu Jahal","Abu Lahab"]],
+ ["Hajarul Aswad diletakkan di atas …","sehelai kain",["sebuah kotak","sebatang kayu","sebuah pinggan"]],
+ ["Setiap ketua kabilah memegang …","hujung kain",["batu itu","tangan Nabi","pintu Kaabah"]],
+ ["Mengapa semua ketua kabilah berpuas hati?","semua dapat mengangkat Hajarul Aswad bersama-sama",["mereka mendapat hadiah","mereka menang bergaduh","Kaabah tidak dibaiki"]],
+ ["Ketua-ketua kabilah hampir …","bergaduh",["bermain","berniaga","bernyanyi"]],
+ ["Nabi Muhammad s.a.w. menggembala kambing ketika …","kecil",["tua","menjadi raja","berhijrah"]],
+ ["Nabi Muhammad s.a.w. menggembala kambing untuk mendapat …","upah",["pingat","hadiah emas","pujian sahaja"]],
+ ["Nabi menjaga kambing supaya kambing tidak …","hilang",["gemuk","tidur","makan"]],
+ ["Bapa saudara Nabi yang membawa baginda ke Syam ialah …","Abu Talib",["Abu Lahab","Abu Bakar","Abdul Muttalib"]],
+ ["Pendeta Bahira tinggal di …","Busra",["Mekah","Madinah","Taif"]],
+ ["Barang dagangan yang dibawa Nabi ke Syam ketika berumur 25 tahun ialah milik …","Siti Khadijah",["Abu Talib","Maisarah","Halimah"]],
+ ["Siti Khadijah tertarik dengan Nabi kerana baginda …","jujur dan amanah",["kaya","kuat","tinggi"]],
+ ["Nabi mendapat untung yang banyak kerana berniaga dengan …","jujur",["menipu","marah","malas"]],
+ ["Al-Amin ialah gelaran Nabi sebelum baginda …","menjadi rasul",["berkahwin","lahir","berhijrah"]],
+ ["Penduduk Mekah suka menyimpan barang berharga dengan Nabi kerana baginda …","amanah",["kaya","garang","tinggi"]],
+ ["Sifat wajib Rasul yang bermaksud bijaksana ialah …","Fatanah",["Siddiq","Amanah","Tabligh"]],
+ ["Sifat wajib Rasul yang bermaksud dipercayai ialah …","Amanah",["Siddiq","Tabligh","Fatanah"]],
+ ["Sifat wajib Rasul yang bermaksud menyampaikan ialah …","Tabligh",["Amanah","Fatanah","Siddiq"]],
+ ["Sifat mustahil bagi Rasul yang bermaksud dusta ialah …","Kizib",["Khianat","Kitman","Baladah"]],
+ ["Sifat mustahil bagi Rasul yang bermaksud bodoh ialah …","Baladah",["Kizib","Khianat","Kitman"]],
+ ["Sifat mustahil bagi Rasul yang bermaksud tidak amanah ialah …","Khianat",["Kitman","Kizib","Baladah"]],
+ ["Sifat mustahil bagi Rasul yang bermaksud menyembunyikan ialah …","Kitman",["Baladah","Khianat","Kizib"]],
+ ["Pengajaran daripada peristiwa Hajarul Aswad ialah …","menyelesaikan masalah dengan adil",["bergaduh untuk menang","mementingkan diri","tidak peduli orang lain"]],
+ ["Pengajaran daripada kisah Nabi berniaga ialah …","jujur ketika berjual beli",["menipu timbangan","menyorok barang","menaikkan harga sesuka hati"]],
+ ["Kota tempat lahir Nabi Muhammad s.a.w. ialah …","Mekah",["Syam","Busra","Taif"]],
+ ["Contoh sifat Amanah di sekolah ialah …","menjaga buku perpustakaan dengan baik",["mengoyak buku","menyorok buku","membawa balik buku tanpa izin"]],
+ ["Contoh sifat Siddiq di rumah ialah …","bercakap benar kepada ibu bapa",["berbohong tentang kerja rumah","menyalahkan adik","menyorok kesalahan"]],
+ ["Contoh sifat Tabligh ialah …","mengajak kawan berbuat baik",["menyimpan ilmu sendiri","mengajak kawan bergaduh","merahsiakan pesanan guru"]],
+ ["Contoh sifat Fatanah ialah …","berfikir sebelum membuat keputusan",["membuat keputusan sambil marah","meniru kawan","tidak mahu belajar"]]
+].forEach(([q,a,d])=>AX("sirah",q,a,d));
+[["Batu hitam di Kaabah dipanggil ___.","Hajarul Aswad",["Maqam Ibrahim","Zamzam"]],["Nabi menghamparkan ___ untuk meletakkan Hajarul Aswad.","kain",["tikar","daun"]],["Nabi menggembala ___ semasa kecil.","kambing",["unta","lembu"]],["Nabi pergi ke ___ untuk berniaga.","Syam",["Yaman","Taif"]],["Pendeta yang melihat tanda kenabian ialah ___.","Bahira",["Maisarah","Waraqah"]],["Nabi digelar ___ kerana jujur dan amanah.","Al-Amin",["Al-Faruq","As-Siddiq"]],["Lawan bagi sifat Tabligh ialah ___.","Kitman",["Kizib","Baladah"]],["Lawan bagi sifat Amanah ialah ___.","Khianat",["Kitman","Kizib"]],["Siti Khadijah tertarik dengan ___ Nabi.","kejujuran",["kekayaan","kekuatan"]],["Pembantu Siti Khadijah ialah ___.","Maisarah",["Bahira","Halimah"]]].forEach(([q,a,d])=>CX("sirah",q,a,d));
+/* IBADAH */
+const NJL=[["Anjing","najis berat"],["Babi","najis berat"],["Air liur anjing","najis berat"],["Darah","najis pertengahan"],["Nanah","najis pertengahan"],["Muntah","najis pertengahan"],["Tahi ayam","najis pertengahan"],["Air kencing kucing","najis pertengahan"],["Bangkai tikus","najis pertengahan"],["Air kencing bayi lelaki bawah 2 tahun yang minum susu ibu sahaja","najis ringan"],["Air hujan","bukan najis"],["Air paip yang bersih","bukan najis"]];
+NJL.forEach(([x,t])=>AX("ibadah",`${x} ialah …`,t,["najis berat","najis ringan","najis pertengahan","bukan najis"].filter(y=>y!==t)));
+[["Najis berat juga dipanggil najis …","Mughallazah",["Mukhaffafah","Mutawassitah","'Ainiyah"]],
+ ["Najis ringan juga dipanggil najis …","Mukhaffafah",["Mughallazah","Mutawassitah","Hukmiyah"]],
+ ["Najis pertengahan juga dipanggil najis …","Mutawassitah",["Mughallazah","Mukhaffafah","Hukmiyah"]],
+ ["Cara menyucikan najis berat ialah …","sertu: basuh 7 kali, sekali dengan air bercampur tanah",["renjis air","lap dengan tisu","biarkan kering"]],
+ ["Cara menyucikan najis ringan ialah …","renjis air pada tempat najis",["basuh 7 kali","sertu","gosok dengan tanah"]],
+ ["Cara menyucikan najis pertengahan ialah …","basuh hingga hilang warna, bau dan rasa",["renjis air sahaja","biarkan kering","sapu dengan daun"]],
+ ["Tubuh badan, pakaian dan ___ solat mesti suci daripada najis.","tempat",["kasut","beg","buku"]],
+ ["Sertu menggunakan air yang bercampur …","tanah",["gula","garam","sabun sahaja"]],
+ ["Najis menghalang …","sahnya solat",["kita makan","kita tidur","kita bermain"]],
+ ["Bahagian najis yang dapat dilihat ialah najis …","'Ainiyah",["Hukmiyah","Mukhaffafah","Mughallazah"]],
+ ["Cara menyucikan najis Hukmiyah ialah …","mengalirkan air pada tempat najis",["membasuh 7 kali","merenjis sedikit","mengelap dengan kain kering"]],
+ ["Selepas buang air, kita mesti …","beristinjak",["terus bermain","tidur","makan"]],
+ ["Ketika di dalam tandas, kita tidak boleh …","bercakap",["beristinjak","membasuh tangan","menutup pintu"]],
+ ["Doa masuk tandas dibaca …","sebelum masuk ke tandas",["di dalam tandas","selepas keluar","ketika tidur"]],
+ ["Selepas keluar dari tandas, kita membaca …","غُفْرَانَكَ",["آمِين","سُبْحَانَ اللّٰهِ","اَللّٰهُ أَكْبَرُ"]],
+ ["Azan dilaungkan untuk memberitahu …","masuk waktu solat fardu",["waktu makan","waktu tidur","waktu bermain"]],
+ ["Lafaz اَللّٰهُ أَكْبَرُ di awal azan disebut sebanyak …","4 kali",["2 kali","1 kali","6 kali"]],
+ ["Lafaz اَللّٰهُ أَكْبَرُ di awal iqamah disebut sebanyak …","2 kali",["4 kali","1 kali","3 kali"]],
+ ["Lafaz اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ dibaca dalam azan solat …","Subuh",["Zohor","Asar","Maghrib"]],
+ ["Lafaz قَدْ قَامَتِ الصَّلَاةُ dibaca sebanyak … dalam iqamah","2 kali",["4 kali","1 kali","3 kali"]],
+ ["Iqamah dilaungkan …","sebelum solat didirikan",["selepas solat","sebelum tidur","ketika makan"]],
+ ["Apabila mendengar azan, kita …","diam dan menjawab azan",["bercakap kuat","bermain","menyanyi"]],
+ ["حَيَّ عَلَى الْفَلَاحِ bermaksud …","marilah menuju kejayaan",["marilah menunaikan solat","Allah Maha Besar","solat telah didirikan"]],
+ ["Bacaan tasbih ketika rukuk dibaca sebanyak …","3 kali",["1 kali","7 kali","10 kali"]],
+ ["Selepas takbiratul ihram, kita membaca doa …","iftitah",["qunut","makan","tidur"]],
+ ["Solat dimulakan dengan …","takbiratul ihram",["salam","sujud","rukuk"]],
+ ["Muazzin pertama ialah …","Bilal bin Rabah",["Abu Bakar","Umar","Ali"]],
+ ["Ketika beristinjak dengan batu, batu itu mesti …","bersih dan kesat",["licin dan kotor","basah dan berlumpur","daripada makanan"]],
+ ["Air yang digunakan untuk bersuci ialah air …","mutlak",["sirap","teh","kopi"]]
+].forEach(([q,a,d])=>AX("ibadah",q,a,d));
+[["Anjing dan babi ialah najis ___.","berat",["ringan","pertengahan"]],["Darah dan nanah ialah najis ___.","pertengahan",["berat","ringan"]],["Najis ___ disucikan dengan renjis air.","ringan",["berat","pertengahan"]],["Najis berat disucikan dengan ___.","sertu",["renjis","lap"]],["Azan Subuh ada tambahan lafaz ___.","اَلصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ",["قَدْ قَامَتِ الصَّلَاةُ","غُفْرَانَكَ"]],["Orang yang melaungkan azan ialah ___.","muazzin",["imam","makmum"]],["Kita beristinjak dengan tangan ___.","kiri",["kanan","kedua-dua"]],["Kita keluar dari tandas dengan kaki ___.","kanan",["kiri","belakang"]],["Bacaan ketika sujud ialah سُبْحَانَ رَبِّيَ ___.","الْأَعْلَى",["الْعَظِيمِ","الْكَرِيمِ"]],["Bacaan ketika rukuk ialah سُبْحَانَ رَبِّيَ ___.","الْعَظِيمِ",["الْأَعْلَى","الرَّحِيمِ"]],["Solat diakhiri dengan memberi ___.","salam",["takbir","doa"]],["Iqamah menandakan solat akan ___.","didirikan",["tamat","ditangguhkan"]]].forEach(([q,a,d])=>CX("ibadah",q,a,d));
+/* ADAB */
+[["Aminah hendak minum. Apakah adab yang betul?","duduk dan minum dengan tangan kanan",["berdiri sambil berlari","minum sekali gus","bernafas di dalam cawan"]],
+ ["Ali terlupa membaca doa sebelum makan. Apakah yang perlu dia baca?","بِسْمِ اللّٰهِ أَوَّلَهُ وَآخِرَهُ",["غُفْرَانَكَ","آمِين","سُبْحَانَ رَبِّيَ الْأَعْلَى"]],
+ ["Makanan yang panas sebaiknya …","dibiarkan sejuk sedikit",["ditiup kuat-kuat","dibuang","dicela"]],
+ ["Selepas makan, kita mengucapkan …","Alhamdulillah",["Astaghfirullah","Innalillah","Subhanallah sahaja"]],
+ ["Mengapakah kita tidak boleh membazir makanan?","kerana makanan ialah rezeki daripada Allah",["kerana makanan mahal sahaja","kerana kawan marah","kerana cikgu melihat"]],
+ ["Siti makan tetapi tidak menghabiskan nasi. Apakah nasihat kamu?","ambil makanan secukupnya",["buang sahaja","beri kepada kucing","sorok di bawah meja"]],
+ ["Sebelum masuk rumah kawan, kita perlu …","memberi salam dan meminta izin",["terus masuk","mengetuk tingkap","menjerit nama kawan"]],
+ ["Jika tiada orang menjawab salam selepas tiga kali, kita …","pulang dahulu",["masuk sendiri","menjerit","memanjat pagar"]],
+ ["Kasut yang ditanggalkan hendaklah …","disusun dengan kemas",["dicampak","ditinggal di tengah jalan","dibawa masuk ke bilik"]],
+ ["Kita meminta izin ibu bapa sebelum …","keluar rumah",["makan","mandi","tidur"]],
+ ["Ketika masuk rumah, kita mendahulukan kaki …","kanan",["kiri","belakang","mana-mana"]],
+ ["Ketika keluar rumah, kita mendahulukan kaki …","kiri",["kanan","depan","mana-mana"]],
+ ["Ketika menaiki bas, kita perlu …","beratur",["menolak orang","berebut tempat","melompat"]],
+ ["Orang tua naik ke dalam bas yang penuh. Apakah yang patut kamu buat?","memberi tempat duduk kepadanya",["pura-pura tidur","menolaknya","mentertawakannya"]],
+ ["Di dalam kereta, kita tidak boleh …","mengganggu pemandu",["memakai tali pinggang","duduk sopan","membaca doa"]],
+ ["Ketika menaiki motosikal, kepala mesti dilindungi dengan …","topi keledar",["topi koboi","tuala","beg"]],
+ ["Sampah di dalam kereta hendaklah …","disimpan dan dibuang ke dalam tong sampah",["dibuang ke luar tingkap","diletak di atas jalan","dibakar"]],
+ ["Kita naik kenderaan dengan mendahulukan kaki …","kanan",["kiri","belakang","mana-mana"]],
+ ["Doa menaiki kenderaan dimulakan dengan …","سُبْحَانَ الَّذِي سَخَّرَ لَنَا هٰذَا",["غُفْرَانَكَ","بِسْمِ اللّٰهِ أَوَّلَهُ وَآخِرَهُ","آمِين"]],
+ ["Pakaian yang menutup aurat bagi perempuan ialah pakaian yang menutup seluruh badan kecuali …","muka dan dua tapak tangan",["kaki","rambut","leher"]],
+ ["Aurat lelaki ialah antara pusat hingga …","lutut",["kepala","bahu","buku lali"]],
+ ["Ketika menanggalkan baju, kita mendahulukan anggota …","kiri",["kanan","kepala","kaki"]],
+ ["Ketika memakai baju, kita mendahulukan anggota …","kanan",["kiri","kepala","kaki"]],
+ ["Lelaki tidak boleh memakai barang kemas daripada …","emas",["kain","getah","kertas"]],
+ ["Pakaian kita mestilah …","bersih dan kemas",["koyak","kotor","berbau"]],
+ ["Doa memakai pakaian dimulakan dengan …","اَلْحَمْدُ لِلّٰهِ الَّذِي كَسَانِي هٰذَا",["غُفْرَانَكَ","سُبْحَانَ الَّذِي سَخَّرَ لَنَا هٰذَا","آمِين"]],
+ ["Adik memakai baju adiknya yang perempuan untuk berjenaka. Perbuatan ini …","tidak baik kerana lelaki tidak boleh memakai pakaian perempuan",["baik dan digalakkan","wajib","dipuji"]],
+ ["Apabila tetamu memberi salam, kita menjawab …","وَعَلَيْكُمُ السَّلَامُ",["اَلسَّلَامُ عَلَيْكُمْ","غُفْرَانَكَ","آمِين"]],
+ ["Kita mengambil makanan dengan tangan …","kanan",["kiri","kedua-dua","kaki"]],
+ ["Minum dengan tiga teguk bermaksud …","minum perlahan-lahan",["minum sekali gus","minum sambil berlari","minum dari botol kawan"]],
+ ["Sebelum makan, kita membasuh …","tangan",["kaki","rambut","baju"]],
+ ["Mencela makanan bermaksud …","mengata makanan tidak sedap",["memuji makanan","menghabiskan makanan","berkongsi makanan"]],
+ ["Ketika berada dalam kenderaan awam, kita bercakap dengan …","perlahan",["kuat","menjerit","marah"]],
+ ["Mengeluarkan tangan dari tingkap kenderaan boleh menyebabkan …","kemalangan",["kita sihat","kita kaya","kita pandai"]],
+ ["Kita memakai pakaian yang bersih kerana Islam mementingkan …","kebersihan",["kemewahan","kecantikan sahaja","pertunjukan"]],
+ ["Kanak-kanak lelaki ke kelas KAFA memakai …","baju Melayu atau baju yang menutup aurat",["seluar pendek","baju tidur","baju renang"]],
+ ["Kita memberi salam ketika masuk ke rumah kerana salam ialah …","doa kesejahteraan",["nyanyian","jeritan","permainan"]],
+ ["Selepas makan, pinggan sebaiknya …","dibasuh atau dihantar ke dapur",["ditinggal di atas lantai","disorok","dibuang"]]
+].forEach(([q,a,d])=>AX("adab",q,a,d));
+[["Kita makan dengan tangan ___.","kanan",["kiri","kedua-dua"]],["Kita minum dengan ___ teguk.","tiga",["satu","sepuluh"]],["Kita tidak boleh ___ makanan.","mencela",["menghabiskan","menikmati"]],["Ketika masuk rumah, kita memberi ___.","salam",["hadiah","duit"]],["Kita meminta ___ sebelum masuk ke rumah orang.","izin",["makanan","duit"]],["Kita memakai ___ di dalam kereta.","tali pinggang keledar",["topi keledar","sarung tangan"]],["Kita memakai ___ ketika menaiki motosikal.","topi keledar",["tali pinggang","kasut sukan"]],["Kita ___ ketika menunggu bas.","beratur",["berebut","menolak"]],["Pakaian Muslim mesti menutup ___.","aurat",["kasut","beg"]],["Kita memakai baju dengan mendahulukan anggota ___.","kanan",["kiri","kepala"]],["Kita menanggalkan baju dengan mendahulukan anggota ___.","kiri",["kanan","kaki"]],["Lelaki tidak boleh memakai ___ dan sutera.","emas",["kain","getah"]],["Selepas makan, kita membaca doa ___ makan.","selepas",["sebelum","semasa"]],["Kita keluar rumah dengan kaki ___.","kiri",["kanan","belakang"]],["Kita masuk rumah dengan kaki ___.","kanan",["kiri","belakang"]],["Kita memberi tempat duduk kepada ___ di dalam bas.","orang tua",["budak nakal","beg"]],["Kita membuang sampah ke dalam ___.","tong sampah",["tingkap","jalan"]],["Kita tidak boleh bernafas di dalam ___.","cawan",["bilik","kereta"]]].forEach(([q,a,d])=>CX("adab",q,a,d));
+[["Nabi Muhammad s.a.w. berumur 12 tahun ketika pergi ke …","Syam",["Madinah","Taif","Yaman"]],["Maisarah menemani Nabi ke Syam untuk …","berniaga",["berperang","berhijrah","belajar"]],["Gelaran Al-Amin diberikan oleh penduduk …","Mekah",["Madinah","Syam","Busra"]],["Kaabah dibaiki semula oleh kaum …","Quraisy",["Ansar","Rom","Parsi"]],["Siapakah yang dilantik menjadi hakim dalam peristiwa Hajarul Aswad?","Nabi Muhammad s.a.w.",["Abu Talib","Abu Jahal","Abu Sufyan"]]].forEach(([q,a,d])=>AX("sirah",q,a,d));
+[["Najis Mukhaffafah disucikan dengan …","merenjis air",["sertu","membasuh 7 kali","mengelap"]],["Bilangan basuhan bagi najis Mughallazah ialah …","7 kali",["3 kali","1 kali","10 kali"]],["Salah satu basuhan sertu mesti menggunakan air bercampur …","tanah",["sabun","garam","gula"]],["Tahi kucing ialah najis …","pertengahan",["berat","ringan","bukan najis"]],["Air kencing orang dewasa ialah najis …","pertengahan",["ringan","berat","bukan najis"]],["Kita perlu bersuci daripada najis sebelum …","solat",["bermain","makan","tidur"]],["Bacaan ketika bangun dari rukuk ialah …","سَمِعَ اللّٰهُ لِمَنْ حَمِدَهُ",["سُبْحَانَ رَبِّيَ الْأَعْلَى","غُفْرَانَكَ","آمِين"]],["Bacaan ketika duduk antara dua sujud dimulakan dengan …","رَبِّ اغْفِرْ لِي",["سُبْحَانَ رَبِّيَ الْعَظِيمِ","اَللّٰهُ أَكْبَرُ","غُفْرَانَكَ"]],["Lafaz azan yang terakhir ialah …","لَا إِلٰهَ إِلَّا اللّٰهُ",["اَللّٰهُ أَكْبَرُ","حَيَّ عَلَى الصَّلَاةِ","قَدْ قَامَتِ الصَّلَاةُ"]],["Alat istinjak selain air mestilah …","kesat, bersih dan suci",["licin","basah dan kotor","makanan"]]].forEach(([q,a,d])=>AX("ibadah",q,a,d));
+
+/* ---- BINA 5 SET × 40 (A 24 · B 8 · C 8) ---- */
+const N={A:24,B:8,C:8};
+SUBJECTS.forEach(s=>{
+ ["A","B","C"].forEach(k=>{const seen=new Set();P[s.id][k]=P[s.id][k].filter(q=>{const key=q[0]+"|"+q[1];if(seen.has(key))return false;seen.add(key);return true})});
+ const ord={};["A","B","C"].forEach(k=>ord[k]=sh(P[s.id][k]));
+ s.sets=[0,1,2,3,4].map(i=>["A","B","C"].flatMap(k=>{const L=ord[k],n=N[k],st=L.length>=n*5?i*n:Math.floor(i*L.length/5);return sh(Array.from({length:Math.min(n,L.length)},(_,j)=>L[(st+j)%L.length]))}));
+});
+window.__POOL=P;
+})();
+
+/* ============ STATE ============ */
+const KEY="kafa2-nadeera-v2-40";
+let best={};
+try{best=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){best={}}
+function saveBest(){try{localStorage.setItem(KEY,JSON.stringify(best))}catch(e){}}
+const app=document.getElementById("app");
+const AR=/[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿]/;
+const wrapAr=s=>s.replace(/([؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿][؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿ً-ٰ\s…،؟٢+]*[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿ً-ٰ؟٢…]|[؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿])/g,'<span class="ar">$1</span>');
+const subj=id=>SUBJECTS.find(s=>s.id===id);
+const colVars=s=>`--col:var(--c-${s.id});--tint:var(--t-${s.id})`;
+function starsFor(score){return score==null?0:score>=36?3:score>=28?2:score>=20?1:0}
+function starHtml(n){return `<span class="stars" aria-label="${n} bintang">${"★".repeat(n)}<span class="off">${"★".repeat(3-n)}</span></span>`}
+
+/* ============ SOUND ============ */
+let actx=null;
+function tone(seq){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();let t=actx.currentTime;seq.forEach(([f,d,type])=>{const o=actx.createOscillator(),g=actx.createGain();o.type=type||"sine";o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.25,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(actx.destination);o.start(t);o.stop(t+d+.02);t+=d*.85})}catch(e){}}
+const sfx={ok:()=>tone([[660,.12],[880,.12],[1320,.22]]),no:()=>tone([[220,.25,"triangle"],[180,.3,"triangle"]]),win:()=>tone([[523,.14],[659,.14],[784,.14],[1047,.35]]),tap:()=>tone([[900,.06]])};
+
+let voices=[];
+function loadVoices(){try{voices=speechSynthesis.getVoices()}catch(e){}}
+if("speechSynthesis" in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
+function pickVoice(lang){const pre=lang.split("-")[0];return voices.find(v=>v.lang.replace("_","-").toLowerCase().startsWith(lang.toLowerCase()))||voices.find(v=>v.lang.toLowerCase().startsWith(pre))||(pre==="ms"?voices.find(v=>v.lang.toLowerCase().startsWith("id")):null)}
+function cleanMs(t){return t.replace(/_{2,}/g," kosong ").replace(/s\.a\.w\./g,"sallallahu alaihi wasallam").replace(/a\.s\./g,"alaihissalam").replace(/\bSWT\b/g,"subhanahu wa taala").replace(/ﷺ|ﷻ/g,"").replace(/…/g,". ").replace(/★/g,"")}
+function speak(text,opt){
+  if(!("speechSynthesis" in window)){toast("Peranti ini tidak menyokong suara.");return}
+  speechSynthesis.cancel();
+  const parts=[];const forceAr=opt==="ar";
+  if(forceAr){parts.push({t:text,l:"ar-SA"})}
+  else{const re=/([؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿][؀-ۿݐ-ݿﭐ-﷿ﹰ-﻿ً-ٰ\s،؟]*)/g;let last=0,m;
+    while((m=re.exec(text))){if(m.index>last)parts.push({t:cleanMs(text.slice(last,m.index)),l:"ms-MY"});if(opt!=="noar")parts.push({t:m[1],l:"ar-SA"});last=m.index+m[1].length}
+    if(last<text.length)parts.push({t:cleanMs(text.slice(last)),l:"ms-MY"})}
+  parts.filter(p=>p.t.trim()).forEach(p=>{const u=new SpeechSynthesisUtterance(p.t);u.lang=p.l;const v=pickVoice(p.l);if(v)u.voice=v;u.rate=p.l==="ar-SA"?.8:.95;speechSynthesis.speak(u)});
+}
+let tt;function toast(m){const el=document.getElementById("toast");el.textContent=m;el.hidden=false;clearTimeout(tt);tt=setTimeout(()=>el.hidden=true,2600)}
+
+/* ============ CONFETTI ============ */
+function confetti(){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const c=document.getElementById("cf"),x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;const cols=["#F4B740","#6A4BC2","#0E8A7B","#C8466F","#2B66CF","#3F8A22"];const ps=Array.from({length:120},()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.5,r:4+Math.random()*5,c:cols[Math.floor(Math.random()*6)],vy:2+Math.random()*3,vx:-1+Math.random()*2,a:Math.random()*6}));let f=0;(function step(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.y+=p.vy;p.x+=p.vx;p.a+=.1;x.fillStyle=p.c;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillRect(-p.r,-p.r/2,p.r*2,p.r);x.restore()});if(++f<170)requestAnimationFrame(step);else x.clearRect(0,0,c.width,c.height)})()}
+
+/* ============ VIEWS ============ */
+const DOA="رَبِّ زِدْنِي عِلْمًا وَارْزُقْنِي فَهْمًا";
+function home(){
+  try{speechSynthesis.cancel()}catch(e){}
+  const tiles=SUBJECTS.map(s=>{const b=best[s.id]||[];const done=b.filter(v=>v!=null).length;const st=b.reduce((a,v)=>a+starsFor(v),0);
+    return `<button class="tile" style="${colVars(s)}" data-go="${s.id}"><span class="em" aria-hidden="true">${s.em}</span><span class="nm">${s.name}</span><span class="jw">${s.jw}</span><span class="pg">${done}/5 set siap · ${st}/15 ★</span></button>`}).join("");
+  app.innerHTML=`
+  <section class="hero">
+    <h1>Hi Nadeera, semoga berjaya!</h1>
+    <p>Jangan lupa baca doa sebelum mula belajar ya.</p>
+    <div class="doa">
+      <span class="lbl">Doa sebelum belajar</span>
+      <span class="ar">${DOA}</span>
+      <span class="mean">Ya Tuhanku, tambahkanlah ilmuku dan kurniakanlah aku kefahaman.</span>
+      <button class="snd" id="doaBtn">🔊 Dengar doa</button>
+    </div>
+  </section>
+  <div class="sec-title">Pilih subjek <small>6 subjek · 5 set · 40 soalan setiap set</small></div>
+  <div class="grid">${tiles}</div>
+  <div class="notice">Tajuk-tajuk ini ialah ramalan cikgu untuk peperiksaan KAFA Tahun 2. Kertas soalan sebenar disediakan oleh JAHEIK, jadi ulangkaji juga buku teks.</div>`;
+  document.getElementById("doaBtn").onclick=()=>speak(DOA,"ar");
+  app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{sfx.tap();openSubject(b.dataset.go,"nota")});
+  scrollTo(0,0);
+}
+
+function divider(s){const i=SUBJECTS.indexOf(s)+1;
+  return `<header class="divider"><div class="top"><span class="no">Bahagian ${i} daripada 6</span><button class="back" id="backHome">← Menu</button></div>
+  <div class="row"><span class="em" aria-hidden="true">${s.em}</span><div><h2>${s.name}</h2><div class="jw">${s.jw}</div></div></div></header>`}
+
+function openSubject(id,tab){
+  const s=subj(id);
+  app.innerHTML=`<div style="${colVars(s)};display:flex;flex-direction:column;gap:16px">${divider(s)}
+  <div class="tabs" role="tablist"><button role="tab" id="tabN" aria-selected="${tab==="nota"}">📖 Nota</button><button role="tab" id="tabL" aria-selected="${tab!=="nota"}">✍️ Latihan</button></div>
+  <div id="body" style="display:flex;flex-direction:column;gap:14px"></div></div>`;
+  document.getElementById("backHome").onclick=home;
+  document.getElementById("tabN").onclick=()=>openSubject(id,"nota");
+  document.getElementById("tabL").onclick=()=>openSubject(id,"latihan");
+  const body=document.getElementById("body");
+  if(tab==="nota")renderNotes(s,body);else renderSets(s,body);
+  scrollTo(0,0);
+}
+
+function renderNotes(s,body){
+  body.innerHTML=s.notes.map((n,i)=>{
+    let h=`<article class="note"><div class="note-h"><span class="pic" aria-hidden="true">${n.img}</span><div class="tt"><h3>${n.t}</h3><div class="jw">${n.jw}</div></div><button class="mini" data-say="${i}" aria-label="Dengar nota">🔊</button></div><div class="note-b">`;
+    if(n.p)h+=`<ul>${n.p.map(x=>`<li>${wrapAr(x)}</li>`).join("")}</ul>`;
+    if(n.tb)h+=`<div class="tbl"><table><thead><tr>${n.tb[0].map(c=>`<th>${c}</th>`).join("")}</tr></thead><tbody>${n.tb.slice(1).map(r=>`<tr>${r.map(c=>`<td>${wrapAr(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    if(n.ar)h+=`<div class="arlist">${n.ar.map((a,j)=>`<div class="aritem"><div class="txt"><span class="ar">${a[0]}</span><span class="mn">${a[1]}</span></div><button class="mini" data-ar="${i}-${j}" aria-label="Dengar bacaan">🔊</button></div>`).join("")}</div>`;
+    if(n.v)h+=`<div class="vocab">${n.v.map((v,j)=>`<button class="vc" data-v="${i}-${j}"><span class="pic" aria-hidden="true">${v[2]}</span><span class="ar">${v[0]}</span><span class="mn">${v[1]}</span></button>`).join("")}</div>`;
+    if(n.g)h+=`<div class="letters">${n.g.map((g,j)=>`<button class="lt" data-g="${i}-${j}"><span class="ar">${g[0]}</span><small>${g[1]}</small></button>`).join("")}</div>`;
+    if(n.w)h+=`<div class="vocab">${n.w.map((w,j)=>`<button class="vc" data-w="${i}-${j}"><span class="pic" aria-hidden="true">${w[2]}</span><span class="ar">${w[0]}</span><span class="mn">${w[1]}</span></button>`).join("")}</div>`;
+    return h+`</div></article>`}).join("")+`<button class="btn" id="goL">✍️ Dah faham? Jom buat latihan!</button>`;
+  body.querySelectorAll("[data-say]").forEach(b=>b.onclick=()=>{const n=s.notes[b.dataset.say];let t=n.t+". "+(n.p||[]).join(". ");if(n.tb)t+=". "+n.tb.slice(1).map(r=>r.join(", ")).join(". ");speak(t,s.id==="jawi"?"noar":undefined)});
+  body.querySelectorAll("[data-ar]").forEach(b=>b.onclick=()=>{const[i,j]=b.dataset.ar.split("-");speak(s.notes[i].ar[j][0],"ar")});
+  body.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{const[i,j]=b.dataset.v.split("-");const v=s.notes[i].v[j];body.querySelectorAll(".vc.on").forEach(x=>x.classList.remove("on"));b.classList.add("on");speak(v[0],"ar")});
+  body.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{const[i,j]=b.dataset.g.split("-");speak(s.notes[i].g[j][1].replace("★",""),"noar")});
+  body.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const[i,j]=b.dataset.w.split("-");b.classList.add("on");speak(s.notes[i].w[j][1],"noar")});
+  document.getElementById("goL").onclick=()=>openSubject(s.id,"latihan");
+}
+
+function renderSets(s,body){
+  const b=best[s.id]||[];
+  body.innerHTML=`<div class="fmt"><b>Format soalan (seperti peperiksaan):</b><br>Bahagian A: Objektif, pilih jawapan A, B, C atau D (soalan 1 hingga 24)<br>Bahagian B: Betul atau Salah (soalan 25 hingga 32)<br>Bahagian C: Isi tempat kosong (soalan 33 hingga 40)</div>
+  <div class="sets">${s.sets.map((_,i)=>`<button class="setc" data-set="${i}"><span class="n">Set ${i+1}</span><span class="s">${b[i]!=null?`Markah terbaik: ${b[i]}/40`:"Belum cuba"}</span>${starHtml(starsFor(b[i]))}</button>`).join("")}</div>`;
+  body.querySelectorAll("[data-set]").forEach(x=>x.onclick=()=>{sfx.tap();startQuiz(s,+x.dataset.set)});
+}
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function prep(q){
+  if(q.length===2)return{q:q[0],sec:"B",lab:"Bahagian B · Betul atau Salah",opts:["Betul","Salah"],ans:q[1]?"Betul":"Salah"};
+  const sec=q.length===5?"A":"C";
+  return{q:q[0],sec,lab:sec==="A"?"Bahagian A · Objektif":"Bahagian C · Isi tempat kosong",opts:shuffle(q.slice(1)),ans:q[1]};
+}
+
+/* ============ PETUNJUK (HINT) ============ */
+const HINTS={
+aqidah:[
+ [/Wujud|Qidam|Baqa'|sifat wajib|Sifat wajib|[Mm]ustahil|'Adam|Huduth|Fana'|[Ll]awan|makhluk|binasa|permulaan|melihat Allah/,"Ingat jadual sifat: <b>Wujud</b> = ada (lawan 'Adam), <b>Qidam</b> = sedia (lawan Huduth), <b>Baqa'</b> = kekal (lawan Fana')."],
+ [/Ulul Azmi|Ulul|Azmi|kronologi|keafdalan|afdal|Nuh|Ibrahim|Musa|Isa|Muhammad|Taurat|Injil|Al-Quran|Namrud|Firaun|bahtera|tongkat/,"Ingat <b>NIMIM</b> (ikut kronologi): Nuh (bahtera), Ibrahim (api jadi sejuk), Musa (tongkat, Taurat), Isa (Injil), Muhammad (Al-Quran). Ikut keafdalan: Muhammad, Ibrahim, Musa, Isa, Nuh."],
+ [/[Tt]umbuh|[Aa]kar|[Dd]aun|[Bb]atang|[Bb]uah|oksigen|cahaya matahari/,"Ingat nota Islam dan Sains: akar serap air, batang tegakkan pokok, daun buat makanan dengan cahaya matahari dan bebaskan oksigen."]],
+sirah:[
+ [/Siddiq|Amanah|Tabligh|Fatanah|Kizib|Khianat|Kitman|Baladah|sifat wajib|Sifat wajib|dusta|Rasul boleh|mencontohi|berjual beli|jujur/,"Ingat 4 sifat wajib Rasul: <b>Siddiq</b> (benar), <b>Amanah</b> (dipercayai), <b>Tabligh</b> (menyampaikan), <b>Fatanah</b> (bijaksana)."],
+ [/Hajarul Aswad|Kaabah|kabilah|kain|banjir|Masjidil Haram/,"Ingat 7 langkah peristiwa Hajarul Aswad: Kaabah rosak kerana banjir → ketua kabilah berebut → Nabi hamparkan kain → semua angkat bersama."],
+ [/Syam|Abu Talib|Bahira|Khadijah|Maisarah|berniaga|dagang/,"Ingat kisah berniaga: umur 12 bersama Abu Talib (jumpa Bahira), umur 25 bawa dagangan Siti Khadijah bersama Maisarah."],
+ [/kambing|gembala/,"Ingat kisah Nabi menggembala kambing: sabar dan bertanggungjawab."],
+ [/Al-Amin|Quraisy/,"Al-Amin = orang yang dipercayai, gelaran daripada kaum Quraisy di Mekah."]],
+ibadah:[
+ [/Mughallazah|Mukhaffafah|Mutawassitah|sertu|renjis|[Aa]njing|[Bb]abi|bayi/,"Ingat 3 jenis najis: <b>Mughallazah</b> berat (sertu 7 kali), <b>Mutawassitah</b> pertengahan (basuh sampai hilang warna, bau, rasa), <b>Mukhaffafah</b> ringan (renjis)."],
+ [/'Ainiyah|Hukmiyah/,"<b>'Ainiyah</b> = najis yang nampak. <b>Hukmiyah</b> = najis yang tidak nampak (contoh air kencing yang sudah kering)."],
+ [/[Ii]stinjak|tandas|غُفْرَانَكَ/,"Ingat istinjak: guna air (paling baik), tangan kiri, masuk tandas kaki kiri, keluar kaki kanan, baca doa."],
+ [/[Aa]zan|[Ii]qamah|[Mm]uazzin|Lafaz|أَشْهَدُ|اَللّٰهُ أَكْبَرُ|حَيَّ|قَدْ قَامَتِ|خَيْرٌ مِنَ النَّوْمِ|صَدَقْتَ|أَقَامَهَا/,"Ingat nota azan: jawab حَيَّ dengan لَا حَوْلَ…, jawab الصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ dengan صَدَقْتَ وَبَرِرْتَ, jawab قَدْ قَامَتِ الصَّلَاةُ dengan أَقَامَهَا اللّٰهُ."],
+ [/rukuk|sujud|iktidal|takbir|iftitah|Fatihah|salam|[Ss]olat/,"Ingat bacaan solat: rukuk = الْعَظِيمِ, sujud = الْأَعْلَى, bangun rukuk = سَمِعَ اللّٰهُ, duduk antara dua sujud = رَبِّ اغْفِرْ لِي."],
+ [/[Nn]ajis|air mutlak|[Kk]ebersihan/,"Najis menghalang sahnya solat. Bersihkan dengan air mutlak (air bersih)."]],
+adab:[
+ [/makan|minum|cawan|membazir|mencela|teguk/,"Ingat <b>adab makan dan minum</b>: basuh tangan, baca doa, tangan kanan, duduk, tiga teguk, tidak membazir."],
+ [/rumah|salam|izin|kasut/,"Ingat <b>adab masuk dan keluar rumah</b>: masuk kaki kanan dan beri salam, keluar kaki kiri dan minta izin."],
+ [/kenderaan|kereta|bas|motosikal|tali pinggang|topi keledar/,"Ingat <b>adab menaiki kenderaan</b>: baca doa, naik kaki kanan, pakai tali pinggang atau topi keledar, duduk sopan."],
+ [/pakaian|aurat|emas|sutera|memakai|menanggalkan/,"Ingat <b>adab berpakaian</b>: tutup aurat, bersih, mula pakai dengan anggota kanan, tanggal dengan anggota kiri."],
+ [/doa|Doa/,"Ingat doa-doa dalam nota Adab: doa makan, doa keluar rumah, doa naik kenderaan, doa pakai baju."]],
+jawi:[
+ [/[Ss]ambung| \+ .*= ___/,"Sambungkan huruf dari <b>kanan ke kiri</b>. Huruf ا د ذ ر ز و tidak bersambung ke kiri."],
+ [/[Cc]erakin/,"Pecahkan perkataan huruf demi huruf, mula dari <b>kanan</b>."],
+ [/ber|ter|di \+|pe \+|me \+|ke \+|[Ii]mbuhan|awalan|akhiran|apitan|\+ an|\+ kan|[Kk]ata dasar/,"Imbuhan ditulis <b>bersambung</b>: ber = بر, di = د, ter = تر, pe = ڤ, ke = ک, -an = ن, -kan = کن. Ejaan kata dasar tidak berubah."],
+ [/[Hh]uruf|titik/,"Ingat 6 huruf tambahan Jawi: چ (ca), ڠ (nga), ڤ (pa), ݢ (ga), ڽ (nya), ۏ (va)."],
+ [/[Ee]jaan|dibaca|dieja/,"Ingat kad Perkataan Lazim dalam nota Jawi. Sebut perkataan perlahan-lahan, huruf demi huruf."]],
+arab:[
+ [/هٰذَا|هٰذِهِ|ذٰلِكَ|تِلْكَ|[Mm]uannas|[Mm]udzakkar|ayat yang betul/,"Dekat: هٰذَا (lelaki), هٰذِهِ (perempuan). Jauh: ذٰلِكَ (lelaki), تِلْكَ (perempuan). Perkataan yang berakhir dengan ة ialah muannas."],
+ [/عَشَرَ|عِشْرُونَ|[Nn]ombor|[٠-٩]/,"Ingat nombor: ١٤ أَرْبَعَةَ عَشَرَ, ١٥ خَمْسَةَ عَشَرَ, ١٦ سِتَّةَ عَشَرَ, ١٧ سَبْعَةَ عَشَرَ, ١٨ ثَمَانِيَةَ عَشَرَ, ١٩ تِسْعَةَ عَشَرَ, ٢٠ عِشْرُونَ."],
+ [/أَنَا|نَحْنُ|هُوَ|هِيَ|أَنْتَ|أَنْتِ|[Kk]ata ganti|يُنَظِّفُ|تُنَظِّفُ|نُنَظِّفُ|أُنَظِّفُ|يَجْلِسُ|تَجْلِسُ/,"أَنَا = saya, نَحْنُ = kami, هُوَ = dia lelaki (يَـ), هِيَ = dia perempuan (تَـ). Contoh: هُوَ يُنَظِّفُ, هِيَ تُنَظِّفُ."],
+ [/مَاذَا|كَمْ|هَلْ|[Kk]ata tanya/,"مَاذَا = apa, كَمْ = berapa, هَلْ = adakah."],
+ [/مِقْلَمَ|مِسْطَرَ|مِمْحَا|مِقَص|قَلَمُ|قَلَمٌ|bekas pensel|pembaris|pemadam pensel|gunting|pensel|pen/,"Ingat <b>Unit 5</b> مَاذَا فِي مِقْلَمَتِي؟: مِقْلَمَةٌ, مِسْطَرَةٌ, مِمْحَاةٌ, مِقَصٌّ, قَلَمٌ, قَلَمُ رَصَاصٍ, قَلَمُ التَّلْوِينِ."],
+ [/حَقِيبَ|كِتَاب|دَفْتَر|وَرَقَة|beg|buku|kertas|مُجْتَهِد/,"Ingat <b>Unit 6</b> مَاذَا فِي حَقِيبَتِي؟: حَقِيبَةٌ, كِتَابٌ, دَفْتَرٌ, وَرَقَةٌ."],
+ [/فَصْل|كُرْسِيّ|مَكْتَب|سَبُّورَ|مِمْسَحَ|لَوْحَ|جَمِيل|kerusi|meja|papan|cantik|kelas/,"Ingat <b>Unit 7</b> فَصْلِي الْجَمِيلُ: كُرْسِيٌّ, مَكْتَبٌ, سَبُّورَةٌ, مِمْسَحَةٌ, لَوْحَةٌ, جَمِيلٌ."],
+ [/بَاب|نَافِذَ|مِصْبَاح|مِرْوَحَ|مِكْنَسَ|سَلَّ|نَظِيف|pintu|tingkap|lampu|kipas|penyapu|sampah|bersih/,"Ingat <b>Unit 8</b> فَصْلِي نَظِيفٌ: بَابٌ, نَافِذَةٌ, مِصْبَاحٌ, مِرْوَحَةٌ, مِكْنَسَةٌ, سَلَّةٌ, نَظِيفٌ."]]
+};
+const noTags=x=>String(x).replace(/<[^>]+>/g,"");
+function hintFor(sid,it){
+  const t=noTags(it.q),ta=t+" "+noTags(it.ans);let h="";
+  for(const [re,txt] of (HINTS[sid]||[]))if(re.test(t)||re.test(t.toLowerCase())){h=txt;break}
+  if(!h)for(const [re,txt] of (HINTS[sid]||[]))if(re.test(ta)){h=txt;break}
+  if(!h)h="Baca soalan perlahan-lahan dan ingat semula nota "+subj(sid).name+".";
+  if(it.sec!=="B"){const a=noTags(it.ans).trim();
+    if(a&&!AR.test(a)&&!/^\d/.test(a)){const n=a.split(/\s+/).length;h+=` Jawapan bermula dengan huruf “<b>${a[0]}</b>” (${n} perkataan).`}}
+  return h;
+}
+
+let Q=null;
+function startQuiz(s,si){Q={s,si,items:s.sets[si].map(prep),i:0,score:0,picked:[]};drawQ()}
+function drawQ(){
+  const {s,si,items,i}=Q;const it=items[i];const body=document.getElementById("body");
+  const letters="ABCD";
+  body.innerHTML=`<div class="quiz">
+   <div class="qtop"><span class="chip">${it.lab}</span><span class="qn">Set ${si+1} · Soalan ${i+1}/${items.length}</span></div>
+   <div class="bar"><i style="width:${i/items.length*100}%"></i></div>
+   <div class="qtext">${wrapAr(it.q.replace(/_{2,}/g,"______"))}</div>
+   <div class="opts ${it.opts.length===2?"two":""}">${it.opts.map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${it.opts.length===2?(k?"✗":"✓"):letters[k]}</span><span class="v ${AR.test(o)&&!/[a-z]{3}/i.test(o)?"ar":""}">${wrapAr(o)}</span></button>`).join("")}</div>
+   <div class="hintbox" id="hintBox" hidden>💡 ${wrapAr(hintFor(s.id,it))}</div>
+   <div id="fb"></div>
+   <div class="act"><button class="btn ghost" id="hintBtn">💡 Petunjuk</button><button class="btn ghost" id="sayQ">🔊 Dengar soalan</button><button class="btn ghost" id="quit">Berhenti</button></div>
+  </div>`;
+  document.getElementById("sayQ").onclick=()=>speak(it.q+". "+it.opts.map((o,k)=>(it.opts.length===2?"":letters[k]+". ")+o).join(". "),s.id==="jawi"?"noar":undefined);
+  document.getElementById("quit").onclick=()=>openSubject(s.id,"latihan");
+  document.getElementById("hintBtn").onclick=()=>{const b=document.getElementById("hintBox");b.hidden=!b.hidden;document.getElementById("hintBtn").textContent=b.hidden?"💡 Petunjuk":"💡 Sorok petunjuk"};
+  body.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+  scrollTo({top:0,behavior:"smooth"});
+}
+function answer(k){
+  const it=Q.items[Q.i];const pick=it.opts[k];const ok=pick===it.ans;
+  Q.picked.push(pick);if(ok)Q.score++;
+  document.querySelectorAll(".opt").forEach((b,j)=>{b.disabled=true;if(it.opts[j]===it.ans)b.classList.add("ok");else if(j===k)b.classList.add("no")});
+  ok?sfx.ok():sfx.no();
+  const praise=["Betul! Hebatnya Nadeera! 🎉","Tepat sekali! ⭐","Pandai! Teruskan! 👏","MasyaAllah, betul! 🌟"];
+  const fb=document.getElementById("fb");
+  fb.innerHTML=`<div class="fb ${ok?"ok":"no"}">${ok?praise[Math.floor(Math.random()*praise.length)]:`Tak apa, cuba ingat ya. Jawapan betul: ${wrapAr(it.ans)}`}</div>`;
+  const act=document.querySelector(".act");const nx=document.createElement("button");nx.className="btn";nx.textContent=Q.i<Q.items.length-1?"Soalan seterusnya →":"Lihat markah 🏆";act.prepend(nx);nx.focus();
+  nx.onclick=()=>{Q.i++;Q.i<Q.items.length?drawQ():finish()};
+}
+function finish(){
+  const {s,si,score,items,picked}=Q;
+  best[s.id]=best[s.id]||[];if(best[s.id][si]==null||score>best[s.id][si])best[s.id][si]=score;saveBest();
+  const T=items.length;const st=starsFor(score);sfx.win();if(score>=T*.7)confetti();
+  const msg=score===T?"Markah penuh! Tahniah Nadeera! 🏆":score>=T*.7?"Bagus sekali! Sikit lagi nak penuh! 💪":score>=T*.5?"Boleh tahan! Baca nota sekali lagi ya. 📖":"Jangan putus asa! Baca nota dan cuba lagi. 🌱";
+  document.getElementById("body").innerHTML=`<div class="quiz"><div class="result">
+   <span class="chip">${s.name} · Set ${si+1}</span>
+   <span class="big">${score}/${T}</span>${starHtml(st)}<h3>${msg}</h3></div>
+   <div class="act"><button class="btn" id="again">↻ Cuba lagi</button>${si<4?`<button class="btn ghost" id="next">Set ${si+2} →</button>`:""}<button class="btn ghost" id="notes">📖 Baca nota</button></div>
+   <h3>Semak jawapan</h3>
+   <div class="review">${items.map((it,i)=>{const ok=picked[i]===it.ans;return `<div class="rv ${ok?"":"no"}"><b>${i+1}. ${ok?"✓":"✗"}</b> ${wrapAr(it.q)}<br>${ok?`Jawapan: ${wrapAr(it.ans)}`:`Jawapan kamu: ${wrapAr(picked[i])} · Betul: <b>${wrapAr(it.ans)}</b>`}</div>`}).join("")}</div></div>`;
+  document.getElementById("again").onclick=()=>startQuiz(s,si);
+  const n=document.getElementById("next");if(n)n.onclick=()=>startQuiz(s,si+1);
+  document.getElementById("notes").onclick=()=>openSubject(s.id,"nota");
+  scrollTo({top:0,behavior:"smooth"});
+}
+home();
+</script>
+
+
+</body></html>
